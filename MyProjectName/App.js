@@ -1,13 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-// import { StyleSheet, Text, View,  SafeAreaView } from 'react-native';
+
+// import { StatusBar } from 'expo-status-bar';
 import FirstPage from './Pages/FirstPage';
-// import NavBar from './components/NavBar'
+import { SafeAreaView } from 'react-native';
 
 export default function App() {
   return (
-    <FirstPage/>   
-    // <NavBar/> 
-  );
-}
+    <SafeAreaView style={{flex:1}}>
+    <FirstPage/>
+    </SafeAreaView>
+    
+
 
 
