@@ -12,7 +12,7 @@ import Button from '../components/Button';
         
       <Logo />
       <View style={styles.buttonContainer}>
-        <Button text="Save" />
+        <Button text="Log In" />
         {/* <Text style={styles.buttonText}>Log In</Text> */}
         <Text style={{color:'#808080',marginTop:'4%',fontWeight:'regular'}}> Don't have an account ?</Text>
         <Text style={{marginTop:'1%',fontSize:18}}>Sign Up</Text>

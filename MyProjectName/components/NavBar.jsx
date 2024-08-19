@@ -1,36 +1,3 @@
-// import React from 'react';
-// import { SafeAreaView, StyleSheet,Text } from 'react-native';
-// import HomeIcon from '../components/HomeIcon'
-// import FoundIcon from '../components/FoundIcon';
-// import AddIcons from '../components/AddIcons';
-// import NotifIcons from './NotifIcons';
-// import ProfileIcon from './ProfileIcon';
-// const NavBar = () => {
-//   return (
-//     <SafeAreaView style={styles.menuContainer}>
-//       <HomeIcon/>
-//       <FoundIcon/>
-//       <AddIcons/>
-//       <NotifIcons/>
-//       <ProfileIcon/>
-//     </SafeAreaView>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   menuContainer: {
-//     height: '10%',
-//     backgroundColor: '#6892D5',
-//     justifyContent: 'center', // Center content vertically
-//     alignItems: 'center',
-//     flexDirection:'row',
-//      // Center content horizontally
-//     marginTop:'30%'
-//   },
-// });
-
-// export default NavBar;
-
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import HomeIcon from '../components/HomeIcon';
