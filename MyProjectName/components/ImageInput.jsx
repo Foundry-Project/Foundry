@@ -9,7 +9,7 @@ function ImageInput() {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#D8DFE9',
-        marginTop: '9%',
+        marginTop: '10%',
         width: 134,
         height: 134,
         borderRadius: 67, // Set to half of width/height

@@ -18,20 +18,20 @@ function Input({ labelText, placeholderText }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    padding:48,
+    justifyContent: 'center',
+    padding: 16,
   },
   inputContainer: {
-    margin: 'left',
+    margin: 16,
   },
   label: {
-    fontSize: 16,
-    marginBottom: 15,
+    fontSize: 14,
+    marginBottom: 18,
   },
   textInput: {
-    height: 45,
-    borderColor: 'grey',
-    borderWidth: 1,
+    height: 40,
+    borderColor: 'C4C4C4',
+    borderWidth: 0.5,
     borderTopWidth: 0, 
     borderLeftWidth: 0,
     borderRightWidth: 0,
