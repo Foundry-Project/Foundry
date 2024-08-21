@@ -15,6 +15,7 @@ function ImageInput() {
         borderRadius: 67, // Set to half of width/height
       }}
     >
+      //test
       <Icons name="upload" size={30} color="black" />
     </Pressable>
   );
