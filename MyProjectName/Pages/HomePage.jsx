@@ -11,7 +11,7 @@ const HomePage = ({ navigation }) => {
     <View style={{flex:1}}>
       <MsgBar />
       <SearchBar />
-     
+     //test 
      <View style={{marginBottom:'-8%'}}>
       
      <CategoriesList />
