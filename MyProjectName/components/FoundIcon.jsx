@@ -3,11 +3,11 @@ import Icons  from 'react-native-vector-icons/Ionicons'
 import { SafeAreaView,Text } from 'react-native'
 
 
-function FoundIcon() {
+function FoundIcon({color='white'}) {
   return (
     <SafeAreaView style={{justifyContent:'center',alignItems:'center'}}>
-       <Icons name='bookmark-outline' size={22} color={'white'}></Icons>
-       <Text style={{marginTop:'1%',color:'white'}}>Found</Text>        
+       <Icons name='bookmark-outline' size={22} color={color}></Icons>
+       <Text style={{marginTop:'1%',color:color}}>Found</Text>        
     </SafeAreaView>
   )
 }
