@@ -44,7 +44,7 @@ const Settings = () => {
               height: '8%', 
               borderWidth: 1, 
               borderColor: "#F0F0F0", 
-              borderRadius: '50%', 
+              borderRadius: 8, 
               backgroundColor: 'white' 
             }}>
             <Image source={item.icon} style={{ width: '10%', height: '89%', margin: '2%' }} />
@@ -62,7 +62,7 @@ const Settings = () => {
             height: '8%', 
             borderWidth: 1, 
             borderColor: "#F0F0F0", 
-            borderRadius: '50%', 
+            borderRadius: 8, 
             backgroundColor: 'white' 
           }}>
           <Image source={Off} style={{ width: '10%', height: '85%', margin: '2%' }} />
