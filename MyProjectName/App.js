@@ -1,19 +1,17 @@
 
 // import { StatusBar } from 'expo-status-bar';
-import FirstPage from './Pages/FirstPage';
+// import FirstPage from './Pages/FirstPage';
 import { SafeAreaView } from 'react-native';
-import Getback from './Onboarding/Getback';
-import Found from './Onboarding/Found';
-import Welcome from './Onboarding/Welcome';
-import Lost from './Onboarding/Lost';
-import Leaderboard from './Pages/Leaderboard';
-import Settings from './Pages/Settings';
-import NavBar from './components/NavBar'
+import AppNavigator from './Pages/AppNavigator';
+// import Categorycard from './components/Categorycard';
+// import CategoriesList from './components/CategoriesList';
 export default function App() {
   return (
     <SafeAreaView style={{flex:1}}>
-    <Settings/>
-<NavBar/>
+      <AppNavigator />
+    {/* <FirstPage/> */}
+ {/* <AddFromHome /> */}
+ {/* <CategoriesList /> */}
     </SafeAreaView>
     
 
