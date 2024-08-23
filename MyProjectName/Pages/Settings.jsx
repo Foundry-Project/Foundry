@@ -65,7 +65,9 @@ const Settings = () => {
             borderRadius: 8, 
             backgroundColor: 'white' 
           }}>
-          <Image source={Off} style={{ width: '10%', height: '85%', margin: '2%' }} />
+
+          <Image source={Off} style={{ width: '10%', height: '90%', margin: '2%' }} />
+
           <Text style={{ fontSize: 20, color: "#FF5B5B", flex: 1 }}>Log Out</Text>
         </Pressable>
       </View>
