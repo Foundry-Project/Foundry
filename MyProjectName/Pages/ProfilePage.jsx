@@ -1,3 +1,4 @@
+//modified
 import React from 'react';
 import { SafeAreaView, Text, View, StyleSheet, TextInput, ScrollView } from 'react-native';
 import NavBar from '../components/NavBar';
@@ -38,7 +39,7 @@ const ProfilePage = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#F8FCFB',
     justifyContent:'center',
     alignItems:'center'
     
@@ -84,7 +85,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent:'center',
     marginTop: '20%',
-    marginLeft:'17%',
+    marginLeft:'11%',
+    justifyContent:'center',
+    alignItems:'center',
+    // backgroundColor:"pink"
     // backgroundColor:'blue'
   },
   button: {

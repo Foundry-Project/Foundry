@@ -44,7 +44,7 @@ const Notification = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#F8FCFB',
     },
     innerContainer: {
         flex: 1,

@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
   },
  
   buttonContainer: {
-    position: 'absolute',  // Position the button container absolutely
-    bottom: 200,            // Adjust the position as needed
+    position: 'relative',  // Position the button container absolutely
+    top: '30%',            // Adjust the position as needed
     left: 0,
     right: 0,
     alignItems: 'center',

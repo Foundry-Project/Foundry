@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
         height:44,
         textAlign:'center',
         fontWeight:'bold',
-        fontSize:20
+        fontSize:20,
+        borderRadius: 8, // Rounded corners
       },
 })
 

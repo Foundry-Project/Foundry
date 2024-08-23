@@ -11,9 +11,9 @@ function AddItem({ navigation }) {
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
           <Text style={styles.title}>Add Item</Text>
           <ImageInput style={styles.imageInputContainer} />
-          <Text style={styles.label}>* Item Name</Text>
+          <Text style={styles.label}> * Item Name</Text>
           <TextInput style={styles.input} placeholder="Enter item name" />
-          <Text style={styles.label}>* Description</Text>
+          <Text style={styles.label}> * Description</Text>
           <TextInput style={styles.input} placeholder="Enter description" />
           <Text style={styles.label}>Phone Number</Text>
           <TextInput style={styles.input} placeholder="Enter phone number" />
@@ -31,7 +31,7 @@ function AddItem({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#F8FCFB',
   },
   innerContainer: {
     flex: 1,

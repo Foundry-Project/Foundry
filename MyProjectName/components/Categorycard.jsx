@@ -12,3 +12,4 @@ const Categorycard = ({image,categoryName}) => {
 }
 
 export default Categorycard
+

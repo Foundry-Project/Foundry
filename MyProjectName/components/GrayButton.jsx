@@ -13,7 +13,7 @@ function GrayButton({text,style}) {
 const styles = StyleSheet.create({
       buttonText: {
         backgroundColor: '#D8DFE9',
-        color: 'blavk',
+        color: 'black',
         padding: 9,
         borderRadius: 20,
         width:309,
