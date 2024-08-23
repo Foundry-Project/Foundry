@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#6892D5',
   },
   button: {
-    backgroundColor: '#6892D5',
+    backgroundColor: '#407BFF',
     borderRadius: 10,
     width: '80%',
     height: '5%',
