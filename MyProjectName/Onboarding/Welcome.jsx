@@ -1,32 +1,32 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import image from '../assets/Welcome.png'
+import image from '../assets/Welcome.png';
+
 const Welcome = () => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-          source={image} // Replace this with your actual image URL or local image path
+          source={image}
           style={styles.image}
         />
       </View>
-      <View style={{marginVertical:70}}>
-      <Text style={styles.title}>Welcome to Foundry</Text>
-      <Text style={styles.subtitle}>We bring your belongings back home</Text>
-    </View>
-      <View style={styles.pagination }>
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>Welcome to Foundry</Text>
+        <Text style={styles.subtitle}>We bring your belongings back home</Text>
+      </View>
+      <View style={styles.pagination}>
         {/* Pagination dots */}
         <View style={[styles.dot, styles.activeDot]} />
         <View style={styles.dot} />
         <View style={styles.dot} />
         <View style={styles.dot} />
       </View>
-
       <View style={styles.buttonContainer}>
-        <TouchableOpacity >
+        <TouchableOpacity>
           <Text style={styles.buttonText}>Skip</Text>
         </TouchableOpacity>
-        <TouchableOpacity >
+        <TouchableOpacity>
           <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>
       </View>
@@ -39,31 +39,36 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 50,
+    paddingVertical: '10%',
     backgroundColor: '#FFFFFF',
   },
   imageContainer: {
-    flex: 3,
+    
+    flex: 1,
     justifyContent: 'center',
+    width: "100%",
+    height: "100%",
   },
   image: {
-    width: 400,
-    height: 400,
+    width: "100%",
+    height: "100%",
     resizeMode: 'contain',
+  },
+  textContainer: {
+    marginVertical: '15%',
+    paddingHorizontal: '10%',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#333',
-    // marginBottom:250
   },
   subtitle: {
     fontSize: 16,
     textAlign: 'center',
     color: '#666',
-    marginVertical: 10,
-    
+    marginVertical: '5%',
   },
   pagination: {
     flexDirection: 'row',
@@ -83,12 +88,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '80%',
-    paddingHorizontal: 20,
+    paddingHorizontal: '5%',
+    marginBottom: '5%',
   },
   buttonText: {
     fontSize: 18,
     color: '#007AFF',
   },
+
 });
 
 export default Welcome;
