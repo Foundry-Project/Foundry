@@ -18,10 +18,10 @@ const Notification = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.innerContainer}>
-                <ScrollView contentContainerStyle={styles.scrollViewContent}>
-                    <View style={styles.titleContainer}>
+            <View style={styles.titleContainer}>
                         <Text style={styles.title}>Notifications</Text>
                     </View>
+                <ScrollView contentContainerStyle={styles.scrollViewContent}>
                     <TouchableOpacity style={styles.clearButton}>
                         <Text style={styles.clearText}>Clear</Text>
                     </TouchableOpacity>
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
+        marginTop:25,
     },
     clearButton: {
         alignSelf: 'flex-end',
