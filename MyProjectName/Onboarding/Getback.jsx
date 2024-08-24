@@ -1,46 +1,32 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet,Pressable } from 'react-native';
-import mapanddeliver from '../assets/map.png'
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
+import mapanddeliver from '../assets/map.png';
 
 const Getback = () => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-          source={mapanddeliver} 
+          source={mapanddeliver}
           style={styles.image}
         />
-      </View >
-      <View style={{marginVertical:70}}>
-      <Text style={styles.title}>Connect and Return</Text>
-      <Text style={styles.subtitle}>Communicate with the finders or owners  to arrange the return of items. </Text>
-</View>
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>Connect and Return</Text>
+        <Text style={styles.subtitle}>
+          Communicate with the finders or owners to arrange the return of items.
+        </Text>
+      </View>
       <View style={styles.pagination}>
-        {/* Pagination dots */}
         <View style={styles.dot} />
         <View style={styles.dot} />
         <View style={styles.dot} />
         <View style={[styles.dot, styles.activeDot]} />
       </View>
-
-     <View>
-      <Pressable style={{
-        backgroundColor: '#6892D5',
-        color: 'white',
-        marginVertical:30,
-        borderRadius: 10,
-        width:309,
-        height:44,
-        textAlign:'center',
-        alignItems:'center',
-        justifyContent:'center',
-        fontWeight:'bold',
-        fontSize:20
-      }}>
-   <Text style={{fontWeight:'bold',color:'white'}}>Get Start</Text>
-    </Pressable>   
-      </View>
-      </View>
+      <Pressable style={styles.button}>
+        <Text style={styles.buttonText}>Get Started</Text>
+      </Pressable>
+    </View>
   );
 };
 
@@ -49,31 +35,35 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 50,
+    paddingVertical: '10%',
     backgroundColor: '#FFFFFF',
   },
   imageContainer: {
     flex: 3,
     justifyContent: 'center',
+    width: '100%',
+    alignItems: 'center',
   },
   image: {
-    width: 400,
-    height: 400,
+    width: '80%',
+    height: '80%',
     resizeMode: 'contain',
+  },
+  textContainer: {
+    marginVertical: '10%',
+    paddingHorizontal: '10%',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#333',
-    // marginBottom:30
   },
   subtitle: {
     fontSize: 16,
     textAlign: 'center',
     color: '#666',
-    marginVertical: 10,
-    
+    marginTop: '2%',
   },
   pagination: {
     flexDirection: 'row',
@@ -89,15 +79,19 @@ const styles = StyleSheet.create({
   activeDot: {
     backgroundColor: '#6892D5',
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  button: {
+    backgroundColor: '#407BFF',
+    borderRadius: 10,
     width: '80%',
-    paddingHorizontal: 20,
+    height: '5%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: '5%',
   },
   buttonText: {
+    fontWeight: 'bold',
+    color: 'white',
     fontSize: 18,
-    color: '#007AFF',
   },
 });
 
