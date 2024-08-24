@@ -10,6 +10,7 @@ import Found from './Onboarding/Found';
 import Getback from './Onboarding/Getback';
 import Lost from './Onboarding/Lost';
 import Leaderboard from './Pages/Leaderboard';
+import Welcome from './Onboarding/Welcome';
 // import Categorycard from './components/Categorycard';
 // import CategoriesList from './components/CategoriesList';
 export default function App() {
@@ -18,7 +19,7 @@ export default function App() {
 
 
    <Leaderboard/>
-   <NavBar/>
+   {/* <NavBar/> */}
     </SafeAreaView>
 
 

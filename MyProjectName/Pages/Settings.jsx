@@ -24,7 +24,7 @@ const Settings = () => {
         </View>
       </View>
       
-      <View style={{ marginTop: '10%' }}>
+      <View style={{ marginTop: '10%',}}>
         {[
           { icon: user, label: 'My Account' },
           { icon: Points, label: 'Your Points' },
@@ -41,13 +41,13 @@ const Settings = () => {
               alignItems: 'center', 
               marginVertical: '2%', 
               width: '100%', 
-              height: '8%', 
+              height: '9.5%', 
               borderWidth: 1, 
               borderColor: "#F0F0F0", 
               borderRadius: 8, 
               backgroundColor: 'white' 
             }}>
-            <Image source={item.icon} style={{ width: '10%', height: '89%', margin: '2%' }} />
+            <Image source={item.icon} style={{ width: '10%', height: '60%', margin: '5%' }} />
             <Text style={{ fontSize: 20, color: "black", flex: 1 }}>{item.label}</Text>
             <Arrow name="arrow-forward-ios" size={30} color={"grey"} />
           </Pressable>
@@ -65,9 +65,7 @@ const Settings = () => {
             borderRadius: 8, 
             backgroundColor: 'white' 
           }}>
-
-          <Image source={Off} style={{ width: '10%', height: '90%', margin: '2%' }} />
-
+          <Image source={Off} style={{ width: '10%', height: '85%', margin: '5%' }} />
           <Text style={{ fontSize: 20, color: "#FF5B5B", flex: 1 }}>Log Out</Text>
         </Pressable>
       </View>

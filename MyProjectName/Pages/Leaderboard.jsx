@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5F5F5',
-    marginVertical:'5%',
+    marginVertical:'-10%',
    
   },
   topThreeContainer: {
