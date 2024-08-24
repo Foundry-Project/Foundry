@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import image from '../assets/Welcome.png';
 
-const Welcome = () => {
+const Welcome = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -12,7 +12,7 @@ const Welcome = () => {
         />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Welcome to Foundry</Text>
+        <Text style={styles.title}>Welcome To Foundry</Text>
         <Text style={styles.subtitle}>We bring your belongings back home</Text>
       </View>
       <View style={styles.pagination}>
@@ -24,10 +24,10 @@ const Welcome = () => {
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity>
-          <Text style={styles.buttonText}>Skip</Text>
+          <Text style={styles.buttonText}  onPress={() => navigation.navigate('FirstPage')}>Skip</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.buttonText}>Next</Text>
+          <Text style={styles.buttonText}  onPress={() => navigation.navigate('Lost')}>Next</Text>
         </TouchableOpacity>
       </View>
     </View>

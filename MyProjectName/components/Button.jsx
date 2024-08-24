@@ -2,10 +2,11 @@ import React from 'react'
 import { StyleSheet,Text, Pressable } from 'react-native';
 
 
-function Button({text}) {
+function Button({text,handlePress}) {
+  
   return (
    <Pressable >
-   <Text style={styles.buttonText}>{text}</Text>
+   <Text style={styles.buttonText} onPress={handlePress}>{text}</Text>
     </Pressable>    
   )
 }

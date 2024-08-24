@@ -3,9 +3,20 @@ import { View, TextInput,Text, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import Logo from '../components/Logo'
 import Button from '../components/Button'
-import Map from '../components/Map'
+import { useAppContext } from '../context'; // Adjust the path to your context file
+
+// import Map from '../components/Map'
 const SignUpPage = () => {
-    const [visible,setVisible]=useState(false)
+  const { isLoggedIn,setIsLoggedIn } = useAppContext(); // Access the setIsLoggedIn function from context
+    const [visible,setVisible]=useState(true)
+    const handleNextClick =()=>{
+      setVisible(false)
+    }
+    const handleLogin = () => {
+      setIsLoggedIn(true);
+      console.log(isLoggedIn);
+      
+    };
   return (
     <View style={{flex:1,backgroundColor:'white', alignItems:'center',flexDirection:'column',justifyContent:'center'}}>
      
@@ -57,7 +68,7 @@ const SignUpPage = () => {
       }}
       placeholder='******************'
       /> 
-          <Button text="Next"/>
+          <Button text="Next" handlePress={handleNextClick}/>
    
        </View>
        )}
@@ -96,7 +107,7 @@ const SignUpPage = () => {
        <Pressable>
         <Text style={{color:'#C4C4C4'}}>Go To Map </Text>
        </Pressable>
-          <Button text="Submit" />
+          <Button text="Submit" handlePress={handleLogin} />
    
        </View>
        )}

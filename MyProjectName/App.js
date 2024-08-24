@@ -1,22 +1,23 @@
-
-// import { StatusBar } from 'expo-status-bar';
-// import FirstPage from './Pages/FirstPage';
+import React from 'react';
 import { SafeAreaView } from 'react-native';
+import { AppProvider, useAppContext } from './context'; // Adjust the path to your context file
+import BeforeSigningNavigator from './Pages/BeforeSigningNavigator';
 import AppNavigator from './Pages/AppNavigator';
-// import Map from './components/Map'
-// import SignUpPage from './Pages/SignUpPage'
-// import Settings from'./Pages/Settings'
+
+const AppContent = () => {
+  const { isLoggedIn } = useAppContext(); // Access context inside a component
+
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      {isLoggedIn ? <AppNavigator /> : <BeforeSigningNavigator />}
+    </SafeAreaView>
+  );
+};
 
 export default function App() {
   return (
-    <SafeAreaView style={{flex:1}}>
-      <AppNavigator />
-      
-    {/* <Settings/> */}
-    {/* <SignUpPage /> */}
-
-    </SafeAreaView>
-    
-
-
-  )}
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
+  );
+}

@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,  SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View,  SafeAreaView, Pressable } from 'react-native';
 import Logo from '../components/Logo';
 import Button from '../components/Button';
 
 
- function FirstPage() {
- 
+ function FirstPage({navigation}) {
+ const handlePress=()=>{
+  navigation.navigate('LoginPage')
+ }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -13,11 +15,14 @@ import Button from '../components/Button';
       <Logo />
       <View style={styles.buttonContainer}>
 
-        <Button text="Log In" />
+        <Button text="Log In" handlePress={handlePress} />
 
         {/* <Text style={styles.buttonText}>Log In</Text> */}
         <Text style={{color:'#808080',marginTop:'4%',fontWeight:'regular'}}> Don't have an account ?</Text>
-        <Text style={{marginTop:'1%',fontSize:18}}>Sign Up</Text>
+      <Pressable>
+      <Text style={{marginTop:'1%',fontSize:18}}  onPress={()=>navigation.navigate('SignUpPage')}>Sign Up</Text>
+
+      </Pressable>
       </View>
       
       <StatusBar style="auto" />

@@ -2,14 +2,14 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Foundimage from '../assets/Found.png';
 
-const Found = () => {
+const Found = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image source={Foundimage} style={styles.image} />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Find a Lost Item</Text>
+        <Text style={styles.title}>Find A Lost Item</Text>
         <Text style={styles.subtitle}>
           Browse through found items posted by others or search based on location and description.
         </Text>
@@ -22,10 +22,10 @@ const Found = () => {
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity>
-          <Text style={styles.buttonText}>Skip</Text>
+          <Text style={styles.buttonText}  onPress={() => navigation.navigate('FirstPage')}>Skip</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.buttonText}>Next</Text>
+          <Text style={styles.buttonText}  onPress={() => navigation.navigate('Getback')}>Next</Text>
         </TouchableOpacity>
       </View>
     </View>

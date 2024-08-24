@@ -2,14 +2,14 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Lo from '../assets/Lost1.png';
 
-const Lost = () => {
+const Lost = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image source={Lo} style={styles.image} />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Report a Lost Item</Text>
+        <Text style={styles.title}>Report A Lost Item</Text>
         <Text style={styles.subtitle}>
           Describe the item, and let others know where and when it was lost.
         </Text>
@@ -22,10 +22,10 @@ const Lost = () => {
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity>
-          <Text style={styles.buttonText}>Skip</Text>
+          <Text style={styles.buttonText}  onPress={() => navigation.navigate('FirstPage')}>Skip</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.buttonText}>Next</Text>
+          <Text style={styles.buttonText}  onPress={() => navigation.navigate('Found')}>Next</Text>
         </TouchableOpacity>
       </View>
     </View>
