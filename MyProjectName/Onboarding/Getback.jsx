@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
 import mapanddeliver from '../assets/map.png';
 
-const Getback = () => {
+const Getback = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -12,7 +12,7 @@ const Getback = () => {
         />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Connect and Return</Text>
+        <Text style={styles.title}>Connect And Return</Text>
         <Text style={styles.subtitle}>
           Communicate with the finders or owners to arrange the return of items.
         </Text>
@@ -24,7 +24,7 @@ const Getback = () => {
         <View style={[styles.dot, styles.activeDot]} />
       </View>
       <Pressable style={styles.button}>
-        <Text style={styles.buttonText}>Get Started</Text>
+        <Text style={styles.buttonText}  onPress={() => navigation.navigate('FirstPage')}>Get Started</Text>
       </Pressable>
     </View>
   );
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#407BFF',
     borderRadius: 10,
     width: '80%',
-    height: '5%',
+    height: '7%',
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: '5%',

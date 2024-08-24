@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import NavBar from '../components/NavBar'
 import React from 'react'
 import MsgBar from '../components/MsgBar'
@@ -8,8 +8,8 @@ import ItemList from '../components/ItemList'
 import CategoriesList from '../components/CategoriesList'
 const HomePage = ({ navigation }) => {
   return (
-    <View style={{flex:1}}>
-      <MsgBar />
+    <View style={{flex:1,backgroundColor:"#F8FCFB"}} >
+      <MsgBar navigation={navigation} />
       <SearchBar />
      <View style={{marginBottom:'-8%'}}>
       

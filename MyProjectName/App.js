@@ -1,27 +1,23 @@
-// import { StatusBar } from 'expo-status-bar';
-// import FirstPage from './Pages/FirstPage';
-import { SafeAreaView, Settings } from 'react-native';
+import React from 'react';
+import { SafeAreaView } from 'react-native';
+import { AppProvider, useAppContext } from './context'; // Adjust the path to your context file
+import BeforeSigningNavigator from './Pages/BeforeSigningNavigator';
 import AppNavigator from './Pages/AppNavigator';
-import Terms from './Pages/Terms';
-import NavBar from './components/NavBar';
-import Setting from './Pages/Settings'
-import Privacy from './Pages/Privacy';
-import Found from './Onboarding/Found';
-import Getback from './Onboarding/Getback';
-import Lost from './Onboarding/Lost';
-import Leaderboard from './Pages/Leaderboard';
-import Welcome from './Onboarding/Welcome';
-// import Categorycard from './components/Categorycard';
-// import CategoriesList from './components/CategoriesList';
+
+const AppContent = () => {
+  const { isLoggedIn } = useAppContext(); // Access context inside a component
+
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      {isLoggedIn ? <AppNavigator /> : <BeforeSigningNavigator />}
+    </SafeAreaView>
+  );
+};
+
 export default function App() {
   return (
-    <SafeAreaView style={{flex:1}}>
-
-
-   <Leaderboard/>
-   {/* <NavBar/> */}
-    </SafeAreaView>
-
-
-
-  )}
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
+  );
+}

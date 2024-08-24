@@ -8,7 +8,7 @@ const AddFromHome = () => {
                  backgroundColor:'#EBF0F7',
                  borderRadius:20,
                  marginTop :'15%',
-                 marginLeft:'7%'
+                 marginLeft:'5.3%'
                 }}
                  >
           <View>
@@ -16,7 +16,7 @@ const AddFromHome = () => {
             <View style={{flexDirection:'row',marginTop:'5%',marginLeft:'10%',width:300,justifyContent:"space-between"}}>
             <Text>You can post it here{'\n'}for easy recovery</Text>
            <Pressable style={{borderColor:'#6892D5',borderWidth:2,marginTop:"3%",borderRadius:20,width:90,height:40,justifyContent:'center',alignItems:'center'}}>
-            <Text style={{color:'black'}}>Post Now</Text>
+            <Text style={{color:'black'}}>Post</Text>
            </Pressable>
             
             </View>

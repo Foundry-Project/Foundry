@@ -2,10 +2,11 @@ import React from 'react'
 import { StyleSheet,Text, Pressable } from 'react-native';
 
 
-function Button({text}) {
+function Button({text,handlePress}) {
+  
   return (
    <Pressable >
-   <Text style={styles.buttonText}>{text}</Text>
+   <Text style={styles.buttonText} onPress={handlePress}>{text}</Text>
     </Pressable>    
   )
 }
@@ -20,7 +21,8 @@ const styles = StyleSheet.create({
         height:44,
         textAlign:'center',
         fontWeight:'bold',
-        fontSize:20
+        fontSize:20,
+        borderRadius: 8, // Rounded corners
       },
 })
 

@@ -5,9 +5,11 @@ import FoundIcon from '../components/FoundIcon';
 import AddIcons from '../components/AddIcons';
 import NotifIcons from '../components/NotifIcons';
 import ProfileIcon from '../components/ProfileIcon';
+import { useAppContext } from '../context'; // Import context hook
+
 
 const NavBar = ({ navigation }) => {
-  const [selectedIcon, setSelectedIcon] = useState(null);
+  const { selectedIcon, setSelectedIcon } = useAppContext(); // Use context
 
   const handleIconPress = (iconName, navigateTo) => {
     // setSelectedIcon(null);
@@ -39,7 +41,7 @@ const NavBar = ({ navigation }) => {
           <NotifIcons color={selectedIcon === 'Notifications' ? '#C9FDD7' : 'white'} />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => handleIconPress('Profile', 'ProfilePage')}
+          onPress={() => handleIconPress('Profile', 'Setti')}
         >
           <ProfileIcon color={selectedIcon === 'Profile' ? '#C9FDD7' : 'white'} />
         </TouchableOpacity>

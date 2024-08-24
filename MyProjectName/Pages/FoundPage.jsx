@@ -23,7 +23,7 @@ import ItemList from '../components/ItemList'
 import CategoriesList from '../components/CategoriesList'
 const HomePage = ({ navigation }) => {
   return (
-    <View style={{flex:1}}>
+    <View style={{flex:1,backgroundColor:'#F8FCFB'}}>
       <MsgBar />
       <SearchBar />
       <CategoriesList />

@@ -27,14 +27,14 @@ function Logo() {
 const styles = StyleSheet.create({
   logoContainer: {
     position: 'absolute',
-    top: 120,
-    left: 0,
-    right: 0,
+    top: '7%',
+    // left: 0,
+    // right: 0,
     alignItems: 'center',
   },
   logo: {
-    width: 300,
-    height: 250,
+    width: 150,
+    height: 150,
   },
 });
 

@@ -1,4 +1,5 @@
-import { View, Text, Image, Pressable } from 'react-native';
+
+import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import React from 'react';
 import Arrow from 'react-native-vector-icons/MaterialIcons';
 import Priva from '../assets/privacyp.png';
@@ -9,8 +10,9 @@ import user from '../assets/user.png';
 import Termsand from '../assets/contact.png';
 import Freask from '../assets/faq.png';
 import Off from '../assets/off.png';
+import NavBar from '../components/NavBar';
 
-const Settings = () => {
+const Settings = ({navigation}) => {
   return (
     <View style={{ flex: 1, marginHorizontal: '5%', marginVertical: '15%' }}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -69,6 +71,7 @@ const Settings = () => {
           <Text style={{ fontSize: 20, color: "#FF5B5B", flex: 1 }}>Log Out</Text>
         </Pressable>
       </View>
+      <NavBar  navigation={navigation} style={{ position: 'absolute', bottom: 0, width: '100%' }} />
     </View>
   );
 };

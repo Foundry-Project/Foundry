@@ -1,76 +1,121 @@
+//modified
+import { View, TextInput,Text, Pressable } from 'react-native'
 import React, { useState } from 'react'
-import { SafeAreaView ,Text, StyleSheet,View} from 'react-native'
-import Logo from '../components/Logo';
-import Input from '../components/Input';
-import Button from '../components/Button';
+import Logo from '../components/Logo'
+import Button from '../components/Button'
+import { useAppContext } from '../context'; // Adjust the path to your context file
 
-
-
-function SignUp() {
-  const [visible,setVisible]=useState(false)
-  return (
-    <SafeAreaView style={styles.container}>
-        <Logo style={{marginTop:'4%'}}/>
-       {visible &&
-        (<View>
-        <View style={{width:400,
-                      marginTop:'89%',
-                      height:'36%',
-                      fontWeight:'normal',
-                      // backgroundColor:'pink'
-        }}>
-        <Input  labelText="E-mail Adresse"
-          placeholderText="example@gmail.com"/>  
-          <Input  labelText="Contact Number"
-          placeholderText="55 555 555"/>  
-        <Input  labelText="Password"
-          placeholderText="**************"/>   
-          </View >
-          <View style={{marginTop:'10%',marginLeft:'10%'}}>
-          <Button  text="Next" />
-          </View>
-          </View>
-        
-      )
-          }
-    
-    {!visible &&
-        (<View>
-        <View style={{width:400,
-                      marginTop:'89%',
-                      height:'36%',
-                      fontWeight:'normal',
-                      // backgroundColor:'pink'
-        }}>
-        <Input  labelText="Date Of Birth"
-          placeholderText="01/01/2000"/>  
-          <Input  labelText="Gender "
-          placeholderText="Male/Female"/>  
-        {/* <Input  labelText="Password"
-          placeholderText="**************"/>    */}
-          </View >
-          <View style={{marginTop:'10%',marginLeft:'10%'}}>
-          <Button  text="Submit" />
-          </View>
-          </View>
-        
-      )
-          }
+// import Map from '../components/Map'
+const SignUpPage = () => {
+  const { isLoggedIn,setIsLoggedIn } = useAppContext(); // Access the setIsLoggedIn function from context
+    const [visible,setVisible]=useState(true)
+    const handleNextClick =()=>{
+      setVisible(false)
+    }
+    const handleLogin = () => {
+      setIsLoggedIn(true);
+      console.log(isLoggedIn);
       
-          
-          
-          
-          
-    </SafeAreaView>
+    };
+  return (
+    <View style={{flex:1,backgroundColor:'white', alignItems:'center',flexDirection:'column',justifyContent:'center'}}>
+     
+      <Logo  />
+      {visible && (<View style={{marginLeft:'20%',width:'100%',flexDirection:"column",justifyContent:'center',marginTop:'64%'}}> 
+      
+      <Text style={{marginBottom:-10,fontSize:16}} >E-mail Adresse</Text>
+      <TextInput style={{backgroundColor:'white',
+                         height:'13%',
+                         borderWidth: 0.5,
+                         borderColor: '#C4C4C4',
+                         borderTopWidth: 0, 
+                         borderLeftWidth: 0,
+                         borderRightWidth: 0,
+                         width:'80%',
+                         marginBottom:'7%',
+                         backgroundColor:'transparent'
+                         
+   }}
+      placeholder="example@gmail.com"/>
+       <Text  style={{fontSize:16}}>Contact Number</Text>
+       <TextInput style={{
+         // backgroundColor:'pink',
+         borderWidth: 0.5,
+         borderColor: '#C4C4C4',
+         borderTopWidth: 0,
+         borderLeftWidth: 0,
+         borderRightWidth: 0,
+         width:'80%',
+         height:"10%",
+         backgroundColor:'transparent',
+         marginBottom:'7%',
+       }}
+       placeholder='+216 55 555 555'
+       />
+       <Text  style={{fontSize:16}}>Password</Text>
+      <TextInput 
+      style={{
+       backgroundColor:'pink',  
+       borderWidth: 0.5,
+       borderColor: '#C4C4C4',
+       borderTopWidth: 0,
+       borderLeftWidth: 0,
+       borderRightWidth: 0,
+       width:'80%',
+       height:"10%",
+       backgroundColor:'transparent',
+       marginBottom:'20%'
+      }}
+      placeholder='******************'
+      /> 
+          <Button text="Next" handlePress={handleNextClick}/>
+   
+       </View>
+       )}
+
+{!visible && (<View style={{marginLeft:'20%',width:'100%',flexDirection:"column",justifyContent:'center',marginTop:'54%'}}> 
+      
+      <Text style={{marginBottom:-1,fontSize:16}} >Date Of Birth</Text>
+      <TextInput style={{backgroundColor:'white',
+                         height:'13%',
+                         borderWidth: 0.5,
+                         borderColor: '#C4C4C4',
+                         borderTopWidth: 0, 
+                         borderLeftWidth: 0,
+                         borderRightWidth: 0,
+                         width:'80%',
+                         marginBottom:'7%',
+                         backgroundColor:'transparent'
+                         
+   }}
+      placeholder="01/01/2000"/>
+       <Text  style={{fontSize:16}}>Gender</Text>
+       <TextInput style={{
+         // backgroundColor:'pink',
+         borderWidth: 0.5,
+         borderColor: '#C4C4C4',
+         borderTopWidth: 0,
+         borderLeftWidth: 0,
+         borderRightWidth: 0,
+         width:'80%',
+         height:"10%",
+         backgroundColor:'transparent',
+         marginBottom:'7%',
+       }}
+       placeholder='Male/Female'
+       />
+       <Pressable>
+        <Text style={{color:'#C4C4C4'}}>Go To Map </Text>
+       </Pressable>
+          <Button text="Submit" handlePress={handleLogin} />
+   
+       </View>
+       )}
+
+    
+
+    </View>
   )
 }
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#F8FCFB',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }})
-
-export default SignUp
+export default SignUpPage
