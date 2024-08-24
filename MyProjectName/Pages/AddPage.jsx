@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 21,
+    marginTop:25,
   },
   label: {
     alignSelf: 'flex-start',
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '100%',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 50,
   },
 });
 
