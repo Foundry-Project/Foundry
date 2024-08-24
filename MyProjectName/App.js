@@ -1,4 +1,3 @@
-
 // import { StatusBar } from 'expo-status-bar';
 // import FirstPage from './Pages/FirstPage';
 import { SafeAreaView, Settings } from 'react-native';
@@ -17,12 +16,12 @@ import Welcome from './Onboarding/Welcome';
 export default function App() {
   return (
     <SafeAreaView style={{flex:1}}>
-     
-      
+
+
    <Leaderboard/>
    {/* <NavBar/> */}
     </SafeAreaView>
-    
+
 
 
   )}

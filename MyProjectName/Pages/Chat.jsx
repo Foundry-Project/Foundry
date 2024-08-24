@@ -32,7 +32,7 @@ const Chat = () => {
                     <Image source={camera} style={styles.icon} />
                 </TouchableOpacity>
                 <TouchableOpacity>
-                    <Image source={attachment} style={styles.attachmentIcon} />
+                    <Image source={attachment} style={styles.icon} />
                 </TouchableOpacity>
                 <TextInput 
                     style={styles.input} 
@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
         height: 24,
     },
     attachmentIcon: {
-        width: 32, 
-        height: 32,
+        width: 24, 
+        height: 24,
     },
     logo: {
         width: 24,
