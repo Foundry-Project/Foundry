@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     marginBottom: 40,
-    marginLeft:'3%'
+    marginLeft:'3%',
+    marginTop: '11%',
   },
   imageInputContainer: {
     marginTop: 3,
