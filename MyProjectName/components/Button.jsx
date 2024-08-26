@@ -12,8 +12,8 @@ function Button({text}) {
 
 const styles = StyleSheet.create({
       buttonText: {
-        backgroundColor: '#6892D5',
-        color: 'white',
+        backgroundColor: '#AFB6CF',
+        color: 'black',
         padding: 8,
         borderRadius: 20,
         width:309,
