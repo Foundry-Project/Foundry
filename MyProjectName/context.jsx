@@ -6,6 +6,8 @@ const AppContext = createContext({
   setIsLoggedIn: () => {},
   selectedIcon : null,
   setSelectedIcon: () => {},
+  userid:null,
+  setuserid:()=> {},
 });
 
 // Custom hook to use the AppContext
@@ -21,9 +23,9 @@ export const useAppContext = () => {
 export const AppProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
  const [selectedIcon,setSelectedIcon] = useState(null)
-
+const [userid,setuserid]= useState(null)
   return (
-    <AppContext.Provider value={{ isLoggedIn, setIsLoggedIn,selectedIcon,setSelectedIcon}}>
+    <AppContext.Provider value={{ isLoggedIn, setIsLoggedIn,selectedIcon,setSelectedIcon,userid,setuserid}}>
       {children}
     </AppContext.Provider>
   );
