@@ -9,7 +9,7 @@ function Logo() {
   useEffect(() => {
     Animated.timing(animatedValue, {
       toValue: 1,
-      duration: 3000,
+      duration: 1500,
       useNativeDriver: true,
     }).start();
   }, [animatedValue]);
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 150,
-    height: 150,
+    width: 170,
+    height: 170,
   },
 });
 

@@ -1,15 +1,20 @@
 const express = require("express");
 const cors = require("cors");
 const { sequelize } = require("./Database/index");
-
+const postRoute = require('./Routes/postroute')
+const userRoute = require('./Routes/userRoute')
+const categoryRoute = require('./Routes/categoryroute')
 
 
 const PORT = 3000;
 const app = express();
-
-app.use(express.json());
 app.use(cors());
 
+app.use(express.json());
+
+app.use('/post', postRoute)
+app.use('/users',userRoute)
+app.use('/category',categoryRoute)
 
 
 

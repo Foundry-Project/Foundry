@@ -1,25 +1,126 @@
-import React from 'react';
-import { SafeAreaView, Text, View, StyleSheet, TextInput, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, Text, View, StyleSheet, TextInput, ScrollView, Platform, TouchableOpacity } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import NavBar from '../components/NavBar';
 import GrayButton from '../components/GrayButton.jsx';
-import ImageInput from '../components/ImageInput.jsx';
+import Newimginpt from './Newimginpt.jsx';
+import { useAppContext } from '../context'; // Import context hook
+import axios from 'axios';
+import { BASE_URL } from '../wifiip.js'; // Import the base URL
+
+
+const categoryMapping = {
+  Electronics: 1,
+  Jewelry: 2,
+  Clothes: 3,
+};
 
 function AddItem({ navigation }) {
+  const [status, setStatus] = useState('Lost');
+  const [currentDate, setCurrentDate] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [itemDesc, setItemDesc] = useState('');
+  const { selectedLocation, setSelectedLocation } = useAppContext();
+  const { uploadedImages, setUploadedImages } = useAppContext();
+  const { data, setData } = useAppContext();
+  const {typoAdd,settypoAdd}= useAppContext ()
+
+  
+
+
+
+  useEffect(() => {
+    const date = new Date();
+    const formattedDate = date.toDateString();
+    setCurrentDate(formattedDate);
+  }, []);
+
+  const formData = {
+    images:uploadedImages,
+    description:itemDesc,
+    date:currentDate,
+    status:status,
+    address: selectedLocation, // Assuming selectedLocation is in { latitude, longitude } format
+    userId:5,
+    categoryId:2,
+    typoaddress:typoAdd
+  };
+       console.log(formData);
+
+  const handleAddItem =  () => {
+    
+    
+    console.log('clicked');
+    
+
+    axios.post(`${BASE_URL}/post/add`,formData
+
+  )
+    .then((res) => {
+      setData(res.data)
+      console.log('Success:', res.data);
+
+    })
+    .catch((err) => {
+      console.error('Error:', err.message);
+    
+    });
+  
+      }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.innerContainer}>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
           <Text style={styles.title}>Add Item</Text>
-          <ImageInput style={styles.imageInputContainer} />
-          <Text style={styles.label}> * Item Name</Text>
-          <TextInput style={styles.input} placeholder="Enter item name" />
+          <Newimginpt />
+
+       
+
           <Text style={styles.label}> * Description</Text>
-          <TextInput style={styles.input} placeholder="Enter description" />
-          <Text style={styles.label}>Phone Number</Text>
-          <TextInput style={styles.input} placeholder="Enter phone number" />
+          <TextInput 
+            style={styles.input} 
+            placeholder="Enter description" 
+            value={itemDesc} 
+            onChangeText={setItemDesc} 
+          />
+
+          <Text style={styles.label}> * Category</Text>
+          <View style={styles.pickerWrapper}>
+            <Picker
+              selectedValue={selectedCategory}
+              onValueChange={(itemValue) => setSelectedCategory(itemValue)}
+              style={styles.picker}
+            >
+              <Picker.Item label="Select Category" value="" />
+              <Picker.Item label="Electronics" value="Electronics" />
+              <Picker.Item label="Jewelry" value="Jewelry" />
+              <Picker.Item label="Clothes" value="Clothes" />
+              {/* Add more categories here */}
+            </Picker>
+          </View>
+
+          <Text style={styles.label}> * Status</Text>
+          <View style={styles.pickerWrapper}>
+            <Picker
+              selectedValue={status}
+              onValueChange={(itemValue) => setStatus(itemValue)}
+              style={styles.picker}
+            >
+              <Picker.Item label="Lost" value="Lost" />
+              <Picker.Item label="Found" value="Found" />
+            </Picker>
+          </View>
+
+          <TouchableOpacity
+            style={styles.mapButton}
+            onPress={() => navigation.navigate('Map')}  // Navigate to the MapScreen
+          >
+            <Text style={styles.mapButtonText}>Where did you find or lose the item?</Text>
+          </TouchableOpacity>
 
           <View style={styles.buttonContainer}>
-            <GrayButton text="Add Item" />
+            <GrayButton text="Add Item" onPress={()=>{handleAddItem()}} />
           </View>
         </ScrollView>
         <NavBar navigation={navigation} />
@@ -35,10 +136,10 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
-    justifyContent: 'space-between', // Pushes content to the top and NavBar to the bottom
+    justifyContent: 'space-between',
   },
   scrollViewContent: {
-    flexGrow: 1, // Allows ScrollView to expand and be scrollable
+    flexGrow: 1,
     alignItems: 'center',
     padding: 20,
   },
@@ -46,7 +147,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 21,
-    marginTop:25,
+    marginTop: 25,
   },
   label: {
     alignSelf: 'flex-start',
@@ -61,13 +162,32 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 20,
   },
-  imageInputContainer: {
-    marginBottom: 20,
+  pickerWrapper: {
+    width: '100%',
+    borderColor: '#ccc',
+    borderWidth: Platform.OS === 'android' ? 1 : 0, // Ensuring picker has a border on Android
+    borderRadius: 8,
+    backgroundColor: '#FFF', // White background to ensure visibility on both platforms
+  },
+  picker: {
+    width: '100%',
   },
   buttonContainer: {
     width: '100%',
     alignItems: 'center',
     marginTop: 50,
+  },
+  mapButton: {
+    marginTop: 10,
+    padding: 15,
+    borderRadius: 8,
+    width: '100%',
+    alignItems: 'center',
+  },
+  mapButtonText: {
+    color: '#407BFF',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });
 

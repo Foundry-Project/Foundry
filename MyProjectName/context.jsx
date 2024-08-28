@@ -4,8 +4,18 @@ import React, { createContext, useState, useContext } from 'react';
 const AppContext = createContext({
   isLoggedIn: false,
   setIsLoggedIn: () => {},
-  selectedIcon : null,
+  selectedIcon: null,
   setSelectedIcon: () => {},
+  selectedLocation: null,
+  setSelectedLocation: () => {},
+  uploadedImages: [],  // New state for uploaded images
+  setUploadedImages: () => {},
+  data:[],
+  setData:() =>{},
+  typoAdd : '',
+  settypoAdd :()=>{},
+  founddata : [],
+  setfounddata : () => {}
 });
 
 // Custom hook to use the AppContext
@@ -20,10 +30,29 @@ export const useAppContext = () => {
 // AppProvider component to wrap around your app
 export const AppProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
- const [selectedIcon,setSelectedIcon] = useState(null)
-
+  const [selectedIcon, setSelectedIcon] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [uploadedImages, setUploadedImages] = useState([]);
+  const [data,setData]= useState([])  // State for storing uploaded images
+  const [typoAdd,settypoAdd]= useState('')  // State for storing uploaded images
+  const [founddata,setfounddata]=useState([])
   return (
-    <AppContext.Provider value={{ isLoggedIn, setIsLoggedIn,selectedIcon,setSelectedIcon}}>
+    <AppContext.Provider value={{
+      isLoggedIn, 
+      setIsLoggedIn, 
+      selectedIcon, 
+      setSelectedIcon, 
+      selectedLocation, 
+      setSelectedLocation,
+      uploadedImages, 
+      setUploadedImages,
+      data,
+      setData ,
+      typoAdd,
+      settypoAdd ,
+      founddata,
+      setfounddata
+    }}>
       {children}
     </AppContext.Provider>
   );
