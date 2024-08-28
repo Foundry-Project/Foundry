@@ -6,6 +6,8 @@ const AppContext = createContext({
   setIsLoggedIn: () => {},
   selectedIcon: null,
   setSelectedIcon: () => {},
+  userid:null,
+  setuserid:()=> {},
   selectedLocation: null,
   setSelectedLocation: () => {},
   uploadedImages: [],  // New state for uploaded images
@@ -36,6 +38,7 @@ export const AppProvider = ({ children }) => {
   const [data,setData]= useState([])  // State for storing uploaded images
   const [typoAdd,settypoAdd]= useState('')  // State for storing uploaded images
   const [founddata,setfounddata]=useState([])
+  const [userid,setuserid]= useState(null)
   return (
     <AppContext.Provider value={{
       isLoggedIn, 
@@ -51,7 +54,9 @@ export const AppProvider = ({ children }) => {
       typoAdd,
       settypoAdd ,
       founddata,
-      setfounddata
+      setfounddata,
+      userid,
+      setuserid
     }}>
       {children}
     </AppContext.Provider>
