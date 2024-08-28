@@ -2,9 +2,9 @@ import React from 'react'
 import { StyleSheet,Text, Pressable } from 'react-native';
 
 
-function GrayButton({text,style}) {
+function GrayButton({text,style,onPress}) {
   return (
-   <Pressable style={style}>
+   <Pressable style={style} onPress={onPress}>
    <Text style={styles.buttonText}>{text}</Text>
     </Pressable>
   )
