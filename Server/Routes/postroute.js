@@ -12,6 +12,8 @@ router.delete('/del/:id', postcontrollers.deleteOnePost)
 
 router.get('/status/:status', postcontrollers.getPostsByStatus)
 
+router.get('/category/:categoryId', postcontrollers.getPostsByCategoryId);
+
 
 
 module.exports = router;

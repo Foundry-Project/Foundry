@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "308981291165",
+    "project_id": "lostandfound-c04a2",
+    "storage_bucket": "lostandfound-c04a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308981291165:android:e54daa6f14bd19e8cf1c74",
+        "android_client_info": {
+          "package_name": "com.foundry.firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABELFagAOaKSrgeyLQNAkEOHBNrIu27uA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
