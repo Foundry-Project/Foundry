@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 
 // Create a Sequelize instance
-const sequelize = new Sequelize('lostandfound', 'fourat', 'Liverpool1892', {
+const sequelize = new Sequelize('lostandfound', 'root', 'root', {
   host: 'localhost',
   dialect: 'mysql',
 });
@@ -158,6 +158,64 @@ const StripePayment = sequelize.define('StripePayment', {
   timestamps: true,
 });
 
+const Admin = sequelize.define('Admin', {
+  firstName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  lastName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true,
+    },
+  },
+  phoneNumber: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  adminLevel: {
+    type: DataTypes.ENUM('SuperAdmin', 'Admin', 'Moderator'),
+    allowNull: false,
+  },
+  permissions: {
+    type: DataTypes.JSON, // e.g., manageUsers, sendNotifications
+    allowNull: true,
+  },
+}, {
+  tableName: 'admins',
+  timestamps: true,
+});
+
+const Notification = sequelize.define('Notification', {
+  message: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  status: {
+    type: DataTypes.ENUM('sent', 'delivered', 'read'),
+    defaultValue: 'sent',
+  },
+}, {
+  tableName: 'notifications',
+  timestamps: true,
+});
+Admin.hasMany(User, {
+  foreignKey: 'managedByAdminId',
+});
+User.belongsTo(Admin, {
+  foreignKey: 'managedByAdminId',
+});
+
+Admin.hasMany(Notification, { foreignKey: 'adminId' });
+User.hasMany(Notification, { foreignKey: 'userId' });
+Notification.belongsTo(Admin, { foreignKey: 'adminId' });
+Notification.belongsTo(User, { foreignKey: 'userId' });
 // Authenticate and synchronize the database
 sequelize.authenticate()
   .then(() => console.log('Database connection successful'))
@@ -173,4 +231,6 @@ module.exports = {
   Category,
   Post,
   StripePayment,
+  Admin,
+  Notification
 };
