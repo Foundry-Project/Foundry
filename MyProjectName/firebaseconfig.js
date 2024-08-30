@@ -1,6 +1,8 @@
-// firebaseConfig.js
-import firebase from '@react-native-firebase/app';
-import firestore from '@react-native-firebase/firestore';
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+// Other Firebase products you may use
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -14,8 +16,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+const app = initializeApp(firebaseConfig);
 
-export { firebase, firestore };
+// Initialize Firestore
+const db = getFirestore(app);
+
+export {  db };
