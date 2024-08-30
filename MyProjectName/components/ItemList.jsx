@@ -19,6 +19,10 @@ axios.get(`${BASE_URL}/post/status/lost`)
 .catch((err)=>{console.log(err);
 })
 },[])
+const place = (x) => {
+  return x.split(',')[0];
+};
+
 
 const formatDate = (isoDate) => {
   return format(new Date(isoDate), 'MMM dd, yyyy'); // Format the date to "Aug 26, 2024"
@@ -33,12 +37,12 @@ const formatDate = (isoDate) => {
        <ItemCard
           image={item.images[0]}
           date={formatDate(item.date)}  // Format the date before passing it to the ItemCard component
-          place={item.place}
+          place={place(item.typoaddress)}
           color={"#FF0000"} // Pass the color directly
           status={item.status}        />
 
-          
-          
+
+
   )}}
       keyExtractor={(item, index) => index.toString()}
       numColumns={2} // Display two cards per row

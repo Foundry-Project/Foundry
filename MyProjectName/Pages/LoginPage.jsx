@@ -6,6 +6,7 @@ import Button from '../components/Button';
 import { useAppContext } from '../context'; // Adjust the path to your context file
 import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
+import BASE from '../wifiip'
 
 
 
@@ -16,23 +17,28 @@ function LoginPage() {
   const [email,setemail]=useState('');
   const [password,setpassword]=useState('');
 
- 
+
+
+  
   const Login = () => {
     // const token = setuserid('token');
     const user = { email: email, password: password };
     
-    axios.post("http://192.168.104.4:3000/User/login", user)
+    axios.post(`http://192.168.104.4:3000/User/login`, user)
       .then((response) => {
         console.log(response);
         console.log("success")
         const token = response.data.token;
         if (token) {
           const decodedToken = jwtDecode(token);
-          console.log(decodedToken); 
-          setuserid(response.data.userid); 
+          console.log("decoded:",decodedToken); 
+          setuserid(decodedToken.id); 
+          
+          
           setIsLoggedIn(true);
 
           console.log('User logged in');
+        
         }
       })
       .catch((err) => {
