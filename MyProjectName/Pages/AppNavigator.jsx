@@ -14,6 +14,9 @@ import Leaderboard from './Leaderboard'
 import Terms from './Terms'
 import FAQScreen from './FAQScreen'
 import Privacy from './Privacy'
+import ItemDetail from './ItemDetail'
+import SearchedPage from './SearchedPage'
+import SearchedByfilter from './SearchedByfilter'
 
 
 const Stack = createStackNavigator();
@@ -34,6 +37,9 @@ const AppNavigator = () => {
         <Stack.Screen   options={{ headerShown: false }}name="FAQScreen" component={FAQScreen} /> 
         <Stack.Screen   options={{ headerShown: false }}name="TermsScreen" component={Terms} /> 
         <Stack.Screen   options={{ headerShown: false }}name="PrivacyScreen" component={Privacy} /> 
+        <Stack.Screen   options={{ headerShown: true }}name="ItemDetail" component={ItemDetail} /> 
+        <Stack.Screen   options={{ headerShown: false }}name="SearchedPage" component={SearchedPage} /> 
+        <Stack.Screen   options={{ headerShown: false }}name="SearchedByfilter" component={SearchedByfilter} /> 
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -93,9 +93,39 @@ const getPostsByStatus = async (req, res) => {
   }
 };
 
+// Controller to get posts by category ID
+const getPostsByCategoryId = async (req, res) => {
+  try {
+    const { categoryId } = req.params; // Get the category ID from the request parameters
+
+    // Validate the category ID
+    if (!categoryId) {
+      return res.status(400).json({ message: 'Category ID is required' });
+    }
+
+    // Query posts based on the category ID
+    const posts = await Post.findAll({
+      where: {
+        categoryId: categoryId // Match the category ID (ensure it's a number)
+      }
+    });
+
+    // Check if any posts are found
+    if (posts.length === 0) {
+      return res.status(404).json({ message: `No posts found with category ID: ${categoryId}` });
+    }
+
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error('Error fetching posts by category ID:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
   addPost,
   getAllPosts,
   deleteOnePost,
-  getPostsByStatus
+  getPostsByStatus,
+  getPostsByCategoryId
 };

@@ -164,6 +164,15 @@ const StripePayment = sequelize.define('StripePayment', {
   timestamps: true,
 });
 
+// Associations
+Post.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+Post.belongsTo(Category, { foreignKey: 'categoryId', as: 'category' });
+User.hasMany(Post, { foreignKey: 'userId', as: 'posts' });
+Category.hasMany(Post, { foreignKey: 'categoryId', as: 'posts' });
+StripePayment.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+User.hasMany(StripePayment, { foreignKey: 'userId', as: 'payments' });
+
+
 // Authenticate and synchronize the database
 sequelize.authenticate()
   .then(() => console.log('Database connection successful'))

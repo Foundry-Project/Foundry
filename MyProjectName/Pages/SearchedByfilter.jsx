@@ -4,20 +4,21 @@ import NavBar from '../components/NavBar'
 import React from 'react'
 import MsgBar from '../components/MsgBar'
 import SearchBar from '../components/SearchBar'
-import ItemListFound from '../components/ItemListFound'
+// import ItemSearchedByFilter from '../components/ItemSearchedByFilter'
 import CategoriesList from '../components/CategoriesList'
-const HomePage = ({ navigation }) => {
+import ItemSearchedByFilter from '../components/ItemSearchedByFilter'
+const SearchedByFilter = ({ navigation }) => {
   return (
     <View style={{flex:1,backgroundColor:'#F8FCFB'}}>
-      <MsgBar navigation={navigation} />
+      <MsgBar navigation={navigation}/>
       <SearchBar />
       <CategoriesList />
 
     
-      <ItemListFound />
+      <ItemSearchedByFilter />
       <NavBar navigation={navigation}/>
     </View>
   )
 }
 
-export default HomePage
+export default SearchedByFilter

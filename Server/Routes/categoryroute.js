@@ -15,7 +15,7 @@ router.get('/:id', catrgotycontrollers.getCategoryById);
 router.delete('/delete', catrgotycontrollers.deleteCategory);
 
 // Route to update one post
-router.put('/update', catrgotycontrollers.updateCategory);
+router.put('/:id', catrgotycontrollers.updateCategory);
 
 
 

@@ -1,54 +1,62 @@
-
 import { FlatList, StyleSheet, View } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Categorycard from './Categorycard';
+import { useAppContext } from '../context';
+import { BASE_URL } from '../wifiip.js';
+import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
+
 
 const CategoriesList = () => {
-  const data = [
-    {
-      categoryName: "Electronics",
-      image: require('../assets/electronics.png')
-    },
-    {
-      categoryName: "Jewelry",
-      image: require('../assets/jewerly.png') // Corrected 'jewerly' to 'jewelry'
-    },
-    {
-      categoryName: "Clothes",
-      image: require('../assets/clothes.png')
-    },
-    {
-      categoryName: "Pets",
-      image: require('../assets/pets.png')
-    },
-    {
-      categoryName: "Vehicules",
-      image: require('../assets/vehicules.png') // Corrected 'vehicules' to 'vehicles'
-    },
-  ];
+  const { categories, setcategories ,filreddata ,setfilreddata} = useAppContext();
+  const navigation = useNavigation(); // Initialize the navigation
+
+
+  useEffect(() => {
+    axios.get(`${BASE_URL}/category/all`)
+      .then((response) => {
+        console.log("Fetched Categories:", response.data.data);
+        setcategories(response.data.data);
+      })
+      .catch((err) => {
+        console.log('Error fetching categories:', err);
+      });
+  }, []);
 
   return (
-    <View style={{zIndex:99999}}>
-    <FlatList
-      data={data}
-      renderItem={({ item }) => (
-        <Categorycard 
-          image={item.image}
-          categoryName={item.categoryName}
-        />
-      )}
-      keyExtractor={(item) => item.categoryName}
-    horizontal={true}
-      contentContainerStyle={styles.contentContainer}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={categories}
+        renderItem={({ item }) => (
+          <Categorycard
+            image={item.categoryImage}
+            categoryName={item.categoryName}
+            onPress={()=>{
+              axios.get(`${BASE_URL}/post/category/${item.id}`)
+              .then((res)=>{
+                console.log(res);
+                 setfilreddata(res.data)
+                 navigation.navigate('SearchedByfilter')
+              }).catch((err)=>{console.log(err);
+              })
+              }}
+          />
+        )}
+        keyExtractor={(item) => item.id.toString()}
+        horizontal
+        contentContainerStyle={styles.contentContainer}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    zIndex: 99999,
+  },
   contentContainer: {
-    paddingHorizontal: 10, // Adjust padding as needed
-},
+    paddingHorizontal: 10,
+  },
 });
 
 export default CategoriesList;

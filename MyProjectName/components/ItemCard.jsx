@@ -1,11 +1,11 @@
 
-import { View, Text, Image } from 'react-native';
+import { View,Pressable, Text, Image } from 'react-native';
 import React from 'react';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import AddIcon from 'react-native-vector-icons/MaterialIcons'
-const ItemCard = ({ image, date, place, color, status }) => {
+const ItemCard = ({ image, date, place, color, status,onPress }) => {
   return (
-    <View style={{
+    <Pressable onPress={onPress} style={{
       width: 164,
       height: 210,
       marginTop: '8%',
@@ -70,7 +70,7 @@ const ItemCard = ({ image, date, place, color, status }) => {
           {place}
         </Text>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
