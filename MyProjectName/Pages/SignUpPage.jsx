@@ -3,9 +3,10 @@ import { View, TextInput,Text, Pressable,Picker} from 'react-native'
 import React, { useState } from 'react'
 import axios from 'axios';
 import Logo from '../components/Logo'
+import { jwtDecode } from "jwt-decode";
 import Button from '../components/Button'
 import { useAppContext } from '../context'; // Adjust the path to your context file
-import { BASE_URL } from '../wifiip.js'; // Import the base URL
+import BASE from '../wifiip'
 
 // import Map from '../components/Map'
 const SignUpPage = () => {
@@ -25,6 +26,7 @@ const [lastname,setlastname]=useState('');
 
 
 
+
     const handleNextClick =()=>{
       setVisible(false)
     }
@@ -38,15 +40,22 @@ const [lastname,setlastname]=useState('');
         password:password
       }
       
-      axios.post(`${BASE_URL}/User/create`,newsign)
+      axios.post(`${BASE}/User/create,newsign`)
       .then((response)=>{
-    console.log(response);
-    setuserid("token", response.data.token);
+    console.log(response)
+    console.log("account created")
+    const token = response.data.token;
+        if (token) {
+          const decodedToken = jwtDecode(token);
+          console.log("decoded:",decodedToken);   
+    setuserid(decodedToken.id); 
     setIsLoggedIn(true);
-    console.log('success');
+    console.log('success')
+  }
       })
       .catch((err)=>{console.log(err)})
      console.log(isLoggedIn,"test");
+  
   
     };
   return (

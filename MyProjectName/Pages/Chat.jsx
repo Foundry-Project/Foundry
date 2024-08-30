@@ -372,7 +372,7 @@ const Chat = ({ userId }) => {
               key={msg.id}
               style={msg.senderId === 5 ? styles.messageUser : styles.messageAdmin}
             >
-              <Text style={msg.senderId === userId ? styles.messageUserText : styles.messageAdminText}>{msg.text}</Text>
+              <Text style={msg.senderId === 5 ? styles.messageUserText : styles.messageAdminText}>{msg.text}</Text>
             </View>
           ))
         )}

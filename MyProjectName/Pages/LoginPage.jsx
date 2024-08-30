@@ -10,7 +10,6 @@ import { BASE_URL } from '../wifiip.js'; // Import the base URL
 
 
 
-
 function LoginPage() {
   const { isLoggedIn,setIsLoggedIn } = useAppContext(); // Access the setIsLoggedIn function from context
   const { userid,setuserid } = useAppContext();
@@ -18,29 +17,35 @@ function LoginPage() {
   const [email,setemail]=useState('');
   const [password,setpassword]=useState('');
 
- 
-  const Login = () => {
-    setIsLoggedIn(true)
-    // const token = setuserid('token');
-    // const user = { email: email, password: password };
-    
-    // axios.post( 'http://192.168.11.230:3000/User/login', user)
-    //   .then((response) => {
-    //     console.log(response);
-    //     console.log("success")
-    //     const token = response.data.token;
-    //     if (token) {
-    //       const decodedToken = jwtDecode(token);
-    //       console.log(decodedToken); 
-    //       setuserid(response.data.userid); 
-    //       setIsLoggedIn(true);
 
-    //       console.log('User logged in');
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+
+  
+  const Login = () => {
+    // const token = setuserid('token');
+    const user = { email: email, password: password };
+    console.log(('click'));
+    
+    
+    axios.post(`${BASE_URL}/User/login`, user)
+      .then((response) => {
+        console.log(response);
+        console.log("success")
+        const token = response.data.token;
+        if (token) {
+          const decodedToken = jwtDecode(token);
+          console.log("decoded:",decodedToken); 
+          setuserid(decodedToken.id); 
+          
+          
+          setIsLoggedIn(true);
+
+          console.log('User logged in');
+        
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <SafeAreaView style={styles.container}>

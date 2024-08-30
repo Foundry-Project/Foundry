@@ -53,8 +53,8 @@ const formatDate = (isoDate) => {
           })}
           />
 
-          
-          
+
+
   )}}
       keyExtractor={(item, index) => index.toString()}
       numColumns={2} // Display two cards per row

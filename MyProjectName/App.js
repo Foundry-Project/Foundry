@@ -1,8 +1,13 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, Settings } from 'react-native';
 import { AppProvider, useAppContext } from './context'; // Adjust the path to your context file
 import BeforeSigningNavigator from './Pages/BeforeSigningNavigator';
 import AppNavigator from './Pages/AppNavigator';
+import SignUpPage from './Pages/SignUpPage';
+import Setting from './Pages/Settings';
+import Leaderboard from './Pages/Leaderboard';
+import SettingsPage from './Pages/SettingsPage';
+
 
 const AppContent = () => {
   const { isLoggedIn } = useAppContext(); // Access context inside a component
@@ -17,7 +22,7 @@ const AppContent = () => {
 export default function App() {
   return (
     <AppProvider>
-      <AppContent />
+      <AppContent/>
     </AppProvider>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, Text, TextInput, View, StyleSheet } from 'react-native';
 
-function Input({ labelText, placeholderText }) {
+function Input({ labelText, placeholderText ,onChangeText}) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.inputContainer}>
@@ -9,6 +9,7 @@ function Input({ labelText, placeholderText }) {
         <TextInput
           style={styles.textInput}
           placeholder={placeholderText}
+          onChangeText={onChangeText}
         />
       </View>
     </SafeAreaView>

@@ -1,53 +1,3 @@
-// const { User } = require('../Database/index'); // Assuming models are exported from the models folder
-
-// // Create a user
-// const addUser = async (req, res) => {
-//   try {
-//     const { firstName, lastName, email, gender, phoneNumber, address, role, image,password } = req.body;
-
-//     // Create a new user
-//     const newUser = await User.create({
-//       firstName,
-//       lastName,
-//       email,
-//       gender,
-//       phoneNumber,
-//       address,
-//       role: role || 'user', // Default role is 'user' if not provided
-//       image,
-//       password
-//     });
-
-//     // Return the created user data as a response
-//     return res.status(201).json({
-//       message: 'User created successfully',
-//       user: newUser,
-//     });
-//   } catch (error) {
-//     console.error('Error creating user:', error);
-//     return res.status(500).json({
-//       message: 'Error creating user',
-//       error: error.message,
-//     });
-//   }
-// };
-// const getAllUsers = async (req, res) => {
-//     try {
-//       const users = await User.findAll();
-  
-//       res.status(200).json({
-//         message: 'Users retrieved successfully',
-//         users,
-//       });
-//     } catch (error) {
-//       res.status(500).json({
-//         message: 'Error retrieving users',
-//         error: error.message,
-//       });
-//     }
-//   };
-
-// module.exports = { addUser,getAllUsers };
 const {User} = require('../Database/index');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -61,7 +11,7 @@ const CreateUser = async (req, res) => {
   
   
     try {
-      const { firstName, lastName, email, password, gender, phoneNumber, image,  } = req.body;
+      const { firstName, lastName, email, password, gender, phoneNumber, image, address } = req.body;
       // Check if user already exists
       const isPasswordValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[^_\s]{6,}$/.test(password);
       // password most contain number , capital and symbol
@@ -88,7 +38,7 @@ const CreateUser = async (req, res) => {
   // , phoneNumber:newUser.phoneNumber
       const token = jwt.sign({ id: newUser.id }, JWT_SECRET, { expiresIn: '1h' });
   
-      res.status(201).json({ token });
+      res.status(201).json({ token});
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });

@@ -12,11 +12,13 @@ import Settings from './Settings';
 import Map from '../components/Map';
 import Leaderboard from './Leaderboard'
 import Terms from './Terms'
-import FAQScreen from './FAQScreen'
 import Privacy from './Privacy'
 import ItemDetail from './ItemDetail'
 import SearchedPage from './SearchedPage'
 import SearchedByfilter from './SearchedByfilter'
+import SettingsPage from './SettingsPage';
+
+
 
 
 const Stack = createStackNavigator();
@@ -34,7 +36,7 @@ const AppNavigator = () => {
         <Stack.Screen   options={{ headerShown: false }}name="Setti" component={Settings} /> 
         <Stack.Screen   options={{ headerShown: false }}name="Map" component={Map} /> 
         <Stack.Screen   options={{ headerShown: false }}name="LeaderboardScreen" component={Leaderboard} /> 
-        <Stack.Screen   options={{ headerShown: false }}name="FAQScreen" component={FAQScreen} /> 
+        <Stack.Screen   options={{ headerShown: false }}name="SettingPage" component={SettingsPage} /> 
         <Stack.Screen   options={{ headerShown: false }}name="TermsScreen" component={Terms} /> 
         <Stack.Screen   options={{ headerShown: false }}name="PrivacyScreen" component={Privacy} /> 
         <Stack.Screen   options={{ headerShown: true }}name="ItemDetail" component={ItemDetail} /> 

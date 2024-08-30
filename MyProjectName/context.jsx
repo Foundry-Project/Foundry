@@ -6,6 +6,8 @@ const AppContext = createContext({
   setIsLoggedIn: () => {},
   selectedIcon: null,
   setSelectedIcon: () => {},
+  userid:null,
+  setuserid:()=> {},
   selectedLocation: null,
   setSelectedLocation: () => {},
   uploadedImages: [],  // New state for uploaded images
