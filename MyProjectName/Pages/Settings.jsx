@@ -1,19 +1,25 @@
 //ajusted the navbar
 import React from 'react';
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
+import { useAppContext } from '../context';
 import Arrow from 'react-native-vector-icons/MaterialIcons';
-import Priva from '../assets/privacyp.png';
-import Rank from '../assets/winner.webp';
-import Points from '../assets/point.png';
-import Gear from '../assets/gear.png';
-import user from '../assets/user.png';
-import Termsand from '../assets/contact.png';
-import Freask from '../assets/faq.png';
-import Off from '../assets/off.png';
+import Priva from '../assets/privacy.png';
+import Rank from '../assets/leaderboard.png';
+import Points from '../assets/points.png';
+import Gear from '../assets/settingss.png';
+import user from '../assets/account1.png';
+import Termsand from '../assets/document.png';
+
+import Off from '../assets/exit.png';
 import NavBar from '../components/NavBar';
 
 const Settings = ({ navigation }) => {
+
+  const {isLoggedIn,setIsLoggedIn,userid,setuserid } = useAppContext();
   // Function to handle navigation based on the icon
+  console.log("404",isLoggedIn)
+  console.log("500",userid)
+  
   const handleNavigation = (icon) => {
     if (icon === user) {
       navigation.navigate('ProfilePage'); // Example route for user profile
@@ -22,14 +28,18 @@ const Settings = ({ navigation }) => {
     } else if (icon === Rank) {
       navigation.navigate('LeaderboardScreen'); // Example route for leaderboard
     } else if (icon === Gear) {
-      navigation.navigate('SettingsScreen'); // Example route for settings
+      navigation.navigate('SettingPage'); // Example route for settings
     } else if (icon === Termsand) {
       navigation.navigate('TermsScreen'); // Example route for terms and conditions
     } else if (icon === Priva) {
       navigation.navigate('PrivacyScreen'); // Example route for privacy policy
-    } else if (icon === Freask) {
-      navigation.navigate('FAQScreen'); // Example route for FAQ
-    }
+    } 
+
+  };
+
+  const handlelogout =()=>{
+    setuserid(null)
+    setIsLoggedIn(false)
   };
 
   return (
@@ -54,7 +64,7 @@ const Settings = ({ navigation }) => {
             { icon: Gear, label: 'Settings' },
             { icon: Termsand, label: 'Terms & Conditions' },
             { icon: Priva, label: 'Privacy Policy' },
-            { icon: Freask, label: 'FAQ' },
+           
           ].map((item, index) => (
             <Pressable 
               key={index} 
@@ -67,9 +77,9 @@ const Settings = ({ navigation }) => {
             </Pressable>
           ))}
 
-          <Pressable style={styles.logoutItem}>
+          <Pressable style={styles.logoutItem} onPress={handlelogout}>
             <Image source={Off} style={styles.optionIcon} />
-            <Text style={styles.logoutText}>Log Out</Text>
+            <Text style={styles.logoutText}  >Log Out</Text>
           </Pressable>
         </View>
       </View>
@@ -84,6 +94,7 @@ const styles = StyleSheet.create({
   profileImage: {
     width: '20%',
     height: undefined,
+    marginVertical:"5%",
     aspectRatio: 1,
     borderRadius: 35,
   },
@@ -115,7 +126,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   optionIcon: {
-    width: '8%',
+    width: '9%',
     height: '60%',
     margin: '5%',
   },
@@ -127,9 +138,9 @@ const styles = StyleSheet.create({
   logoutItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: '2%',
+    marginVertical: '5%',
     width: '100%',
-    height: '8%',
+    height: '10%',
     borderWidth: 1,
     borderColor: '#F0F0F0',
     borderRadius: 8,

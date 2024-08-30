@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import ItemCard from './ItemCard'; // Adjust the path as necessary
 import { useAppContext } from '../context'; // Import context hook
 import { BASE_URL } from '../wifiip.js'; // Import the base URL
 import { format } from 'date-fns';
+import axios from 'axios';
 
 
 const ItemList = () => {
   const { founddata, setfounddata } = useAppContext();
   useEffect(()=>{
-    axios.get(`${BASE_URL}/post/status/lost`)
+    axios.get(`${BASE_URL}/post/status/found`)
     .then((response)=>{
       console.log("resp",response.data);
       setfounddata(response.data);

@@ -38,7 +38,7 @@ const CreateUser = async (req, res) => {
   // , phoneNumber:newUser.phoneNumber
       const token = jwt.sign({ id: newUser.id }, JWT_SECRET, { expiresIn: '1h' });
   
-      res.status(201).json({ token });
+      res.status(201).json({ token});
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });
