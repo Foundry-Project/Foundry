@@ -12,6 +12,7 @@ import Settings from './Settings';
 import Map from '../components/Map';
 import Leaderboard from './Leaderboard'
 import Terms from './Terms'
+
 import Privacy from './Privacy'
 import ItemDetail from './ItemDetail'
 import SearchedPage from './SearchedPage'
