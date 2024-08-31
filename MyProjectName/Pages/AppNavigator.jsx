@@ -12,7 +12,7 @@ import Settings from './Settings';
 import Map from '../components/Map';
 import Leaderboard from './Leaderboard'
 import Terms from './Terms'
-import FAQScreen from './FAQScreen'
+
 import Privacy from './Privacy'
 import SettingsPage from './SettingsPage';
 
