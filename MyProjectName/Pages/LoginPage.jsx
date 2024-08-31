@@ -6,7 +6,7 @@ import Button from '../components/Button';
 import { useAppContext } from '../context'; // Adjust the path to your context file
 import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
-import BASE from '../wifiip'
+import { BASE_URL } from '../wifiip.js'; // Import the base URL
 
 
 
@@ -23,8 +23,10 @@ function LoginPage() {
   const Login = () => {
     // const token = setuserid('token');
     const user = { email: email, password: password };
+    console.log(('click'));
     
-    axios.post(`http://192.168.104.4:3000/User/login`, user)
+    
+    axios.post(`${BASE_URL}/User/login`, user)
       .then((response) => {
         console.log(response);
         console.log("success")

@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 
 // Create a Sequelize instance
-const sequelize = new Sequelize('foundry', 'root', 'root', {
+const sequelize = new Sequelize('lostandfound', 'fourat', 'Liverpool1892', {
   host: 'localhost',
   dialect: 'mysql',
 });
@@ -163,6 +163,15 @@ const StripePayment = sequelize.define('StripePayment', {
   tableName: 'stripe_payments',
   timestamps: true,
 });
+
+// Associations
+Post.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+Post.belongsTo(Category, { foreignKey: 'categoryId', as: 'category' });
+User.hasMany(Post, { foreignKey: 'userId', as: 'posts' });
+Category.hasMany(Post, { foreignKey: 'categoryId', as: 'posts' });
+StripePayment.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+User.hasMany(StripePayment, { foreignKey: 'userId', as: 'payments' });
+
 
 // Authenticate and synchronize the database
 sequelize.authenticate()
