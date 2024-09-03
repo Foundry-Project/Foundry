@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, Text, TextInput, View, StyleSheet } from 'react-native';
 
-function Input({ labelText, placeholderText ,onChangeText}) {
+function Input({ labelText, placeholderText ,onChangeText,type = "text"}) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.inputContainer}>
@@ -10,6 +10,7 @@ function Input({ labelText, placeholderText ,onChangeText}) {
           style={styles.textInput}
           placeholder={placeholderText}
           onChangeText={onChangeText}
+          secureTextEntry={type === "password"}  // Set secureTextEntry if type is "password"
         />
       </View>
     </SafeAreaView>

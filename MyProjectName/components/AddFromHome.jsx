@@ -8,7 +8,7 @@ const AddFromHome = () => {
                  backgroundColor:'#EBF0F7',
                  borderRadius:20,
                  marginTop :'15%',
-                 marginLeft:'5.3%'
+                 marginLeft:'4%'
                 }}
                  >
           <View>

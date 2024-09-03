@@ -1,3 +1,5 @@
+
+
 const { Sequelize, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 
@@ -9,6 +11,11 @@ const sequelize = new Sequelize('lostandfound', 'fourat', 'Liverpool1892', {
 
 // Define the User model
 const User = sequelize.define('User', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
   firstName: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -34,11 +41,11 @@ const User = sequelize.define('User', {
     allowNull: false,
   },
   image: {
-    type: DataTypes.STRING, // URL or file path to the image
+    type: DataTypes.STRING,
     allowNull: true,
   },
   address: {
-    type: DataTypes.JSON, // To store latitude and longitude
+    type: DataTypes.JSON,
     allowNull: true,
   },
   role: {
@@ -49,7 +56,7 @@ const User = sequelize.define('User', {
   password: {
     type: DataTypes.STRING,
     allowNull: false,
-  }
+  },
 }, {
   tableName: 'users',
   timestamps: true,
@@ -68,7 +75,7 @@ const Category = sequelize.define('Category', {
     unique: true,
   },
   categoryImage: {
-    type: DataTypes.STRING, // URL or file path to the category image
+    type: DataTypes.STRING,
     allowNull: true,
   },
 }, {
@@ -84,7 +91,7 @@ const Post = sequelize.define('Post', {
     primaryKey: true,
   },
   images: {
-    type: DataTypes.JSON, // Array of image URLs
+    type: DataTypes.JSON,
     allowNull: true,
   },
   description: {
@@ -96,11 +103,11 @@ const Post = sequelize.define('Post', {
     allowNull: false,
   },
   address: {
-    type: DataTypes.JSON, // To store latitude and longitude
+    type: DataTypes.JSON,
     allowNull: false,
   },
-  typoaddress:{
-    type: DataTypes.STRING, 
+  typoaddress: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
   status: {
@@ -164,6 +171,89 @@ const StripePayment = sequelize.define('StripePayment', {
   timestamps: true,
 });
 
+// Define the Match model
+const Match = sequelize.define('Match', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: User,
+      key: 'id',
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  },
+  postId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Post,
+      key: 'id',
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  },
+  handled: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    allowNull: false,
+  },
+  confirmmatch: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    allowNull: false,
+  },
+  date: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
+   paymentId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: StripePayment, // Name of the table for StripePayment
+      key: 'id',
+    },
+    allowNull: true,
+    onDelete: 'SET NULL', // Optionally set to null if the associated payment is deleted
+  }
+}, {
+  tableName: 'matches',
+  timestamps: true,
+});
+
+// Define the Notification model
+const Notification = sequelize.define('Notification', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: User,
+      key: 'id',
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  },
+  content: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  date: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW,
+  },
+}, {
+  tableName: 'notifications',
+  timestamps: true,
+});
+
 // Associations
 Post.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 Post.belongsTo(Category, { foreignKey: 'categoryId', as: 'category' });
@@ -171,7 +261,12 @@ User.hasMany(Post, { foreignKey: 'userId', as: 'posts' });
 Category.hasMany(Post, { foreignKey: 'categoryId', as: 'posts' });
 StripePayment.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 User.hasMany(StripePayment, { foreignKey: 'userId', as: 'payments' });
-
+Match.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+Match.belongsTo(Post, { foreignKey: 'postId', as: 'post' });
+User.hasMany(Match, { foreignKey: 'userId', as: 'matches' });
+Post.hasMany(Match, { foreignKey: 'postId', as: 'matches' });
+Notification.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+User.hasMany(Notification, { foreignKey: 'userId', as: 'notifications' });
 
 // Authenticate and synchronize the database
 sequelize.authenticate()
@@ -179,7 +274,6 @@ sequelize.authenticate()
   .then(() => sequelize.sync({ alter: true }))
   .then(() => {
     console.log('Database and tables created');
-    // Call the function to create default admin users
     createAdminUsers();
   })
   .catch((err) => console.error('Error setting up database:', err));
@@ -187,35 +281,35 @@ sequelize.authenticate()
 // Function to create admin users by default
 async function createAdminUsers() {
   const adminData = [
-    { firstName: 'Fourat', lastName: 'Anderi', email: 'fouratanderi@gmail.com', gender: 'Male', phoneNumber: '123456789', address: { lat: 36.8065, lng: 10.1815 } },
-    { firstName: 'Iheb', lastName: 'Ben Laabidi', email: 'ihbebenlaabidi@gmail.com', gender: 'Male', phoneNumber: '123456789', address: { lat: 36.8065, lng: 10.1815 } },
-    { firstName: 'Amira', lastName: 'Karoui', email: 'amirakaroui@gmail.com', gender: 'Female', phoneNumber: '123456789', address: { lat: 36.8065, lng: 10.1815 } },
-    { firstName: 'Asil', lastName: 'El Abed', email: 'asilelabed@gmail.com', gender: 'Female', phoneNumber: '123456789', address: { lat: 36.8065, lng: 10.1815 } },
+    { firstName: 'Fourat', lastName: 'Anderi', email: 'fouratanderi@gmail.com', gender: 'Male', phoneNumber: '123456789', address: { lat: 36.8065, lng: 10.1815 }, role: 'admin', password: bcrypt.hashSync('password', 10) },
+    { firstName: 'Iheb', lastName: 'Ben Laabidi', email: 'ihbebenlaabidi@gmail.com', gender: 'Male', phoneNumber: '123456789', address: { lat: 36.8065, lng: 10.1815 }, role: 'admin', password: bcrypt.hashSync('password', 10) },
+    { firstName: 'Amira', lastName: 'Karoui', email: 'amirakaroui@gmail.com', gender: 'Female', phoneNumber: '123456789', address: { lat: 36.8065, lng: 10.1815 }, role: 'admin', password: bcrypt.hashSync('password', 10) },
+    { firstName: 'Assil', lastName: 'El Abde', email: 'assil@gmail.com', gender: 'Male', phoneNumber: '123456789', address: { lat: 36.8065, lng: 10.1815 }, role: 'admin', password: bcrypt.hashSync('password', 10) },
   ];
 
-  const password = 'admin';
-  const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
-
-  for (let admin of adminData) {
-    const existingAdmin = await User.findOne({ where: { email: admin.email } });
-
-    if (!existingAdmin) {
-      await User.create({
-        ...admin,
-        role: 'admin',
-        password: hashedPassword,
+  try {
+    for (const admin of adminData) {
+      const [user, created] = await User.findOrCreate({
+        where: { email: admin.email },
+        defaults: admin,
       });
-      console.log(`Admin user created: ${admin.email}`);
-    } else {
-      console.log(`Admin user already exists: ${admin.email}`);
+
+      if (created) {
+        console.log(`Admin user ${admin.firstName} ${admin.lastName} created successfully.`);
+      } else {
+        console.log(`Admin user ${admin.firstName} ${admin.lastName} already exists.`);
+      }
     }
+  } catch (error) {
+    console.error('Error creating admin users:', error);
   }
 }
-
 module.exports = {
   sequelize,
   User,
   Category,
   Post,
   StripePayment,
+  Notification,
+  Match
 };

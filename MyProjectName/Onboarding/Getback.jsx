@@ -24,7 +24,7 @@ const Getback = ({navigation}) => {
         <View style={[styles.dot, styles.activeDot]} />
       </View>
       <Pressable style={styles.button}>
-        <Text style={styles.buttonText}  onPress={() => navigation.navigate('FirstPage')}>Get Started</Text>
+        <Text style={styles.buttonText}  onPress={() => navigation.navigate('LoginPage')}>Get Started</Text>
       </Pressable>
     </View>
   );

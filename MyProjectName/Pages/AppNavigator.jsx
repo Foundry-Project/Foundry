@@ -32,7 +32,7 @@ const AppNavigator = () => {
         <Stack.Screen   options={{ headerShown: false }}name="AddPage" component={AddPage} />
         <Stack.Screen   options={{ headerShown: false }}name="NotificationsPage" component={NotificationsPage} />
         <Stack.Screen   options={{ headerShown: false }}name="ProfilePage" component={ProfilePage} />
-        <Stack.Screen   options={{ headerShown: false }}name="Chat" component={Chat} /> 
+        <Stack.Screen   options={{ headerShown: true }}name="Chat" component={Chat} /> 
         <Stack.Screen   options={{ headerShown: false }}name="Setti" component={Settings} /> 
         <Stack.Screen   options={{ headerShown: false }}name="Map" component={Map} /> 
         <Stack.Screen   options={{ headerShown: false }}name="LeaderboardScreen" component={Leaderboard} /> 

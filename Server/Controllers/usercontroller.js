@@ -171,6 +171,100 @@ const GetoneUser = async (req, res) => {
     res.status(500).json({ message: 'Error retrieving user', error: error.message });
   }
 };
+
+const GetallAdmins = async (req, res) => {
+  try {
+    const admins = await User.findAll({ where: { role: 'admin' } }); 
+    res.json(admins); 
+  } catch (error) {
+    console.error('Error retrieving admins:', error);
+    res.status(500).json({ message: 'Internal Server Error' }); 
+  }
+};
+const UpdateAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { firstName, lastName, email, password, gender, phoneNumber, image, address } = req.body;
+
+    // Find admin by ID and role
+    const admin = await User.findOne({ where: { id, role: 'admin' } });
+
+    if (!admin) {
+      return res.status(404).json({ message: 'Admin not found' });
+    }
+
+    // Prepare data for update
+    const updatedData = {
+      firstName,
+      lastName,
+      email,
+      gender,
+      phoneNumber,
+      image,
+      address,
+    };
+
+    // If password is provided, hash it and add to the update data
+    if (password) {
+      updatedData.password = await bcrypt.hash(password, 10);
+    }
+
+    // Update admin details
+    await User.update(updatedData, { where: { id, role: 'admin' } });
+
+    // Retrieve the updated admin
+    const updatedAdmin = await User.findOne({ where: { id, role: 'admin' } });
+
+    res.status(200).json({ message: 'Admin updated successfully', admin: updatedAdmin });
+  } catch (error) {
+    console.error('Error updating admin:', error);
+    res.status(500).json({ message: 'Error updating admin', error: error.message });
+  }
+};
+
+const DeleteAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleted = await User.destroy({
+      where: { id, role: 'admin' }
+    });
+    if (deleted) {
+      res.status(204).send();
+    } else {
+      res.status(404).json({ message: 'Admin not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting admin:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+const loginAdmin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Find the admin user by email
+    const admin = await User.findOne({ where: { email, role: 'admin' } });
+
+    if (!admin) {
+      return res.status(404).json({ message: 'Admin not found' });
+    }
+
+    // Compare the entered password with the hashed password in the database
+    const isPasswordValid = await bcrypt.compare(password, admin.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid password' });
+    }
+
+    // If the password is valid, return the admin's ID
+    res.json({ adminId: admin.id });
+  } catch (error) {
+    console.error('Error logging in:', error.message);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
   
   module.exports = {
      CreateUser, 
@@ -178,4 +272,8 @@ const GetoneUser = async (req, res) => {
      DeleteUser,
      UpdateUser,
      GetallUsers,
-     GetoneUser};
+     GetoneUser,
+     GetallAdmins,
+     UpdateAdmin,
+     DeleteAdmin,
+     loginAdmin};

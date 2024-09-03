@@ -6,7 +6,7 @@ import Logo from '../components/Logo'
 import { jwtDecode } from "jwt-decode";
 import Button from '../components/Button'
 import { useAppContext } from '../context'; // Adjust the path to your context file
-import BASE from '../wifiip'
+import { BASE_URL } from '../wifiip.js'; // Import the base URL
 
 // import Map from '../components/Map'
 const SignUpPage = () => {
@@ -40,7 +40,7 @@ const [lastname,setlastname]=useState('');
         password:password
       }
       
-      axios.post(`${BASE}/User/create,newsign`)
+      axios.post(`${BASE_URL}/User/create`,newsign)
       .then((response)=>{
     console.log(response)
     console.log("account created")

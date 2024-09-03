@@ -35,7 +35,8 @@ function LoginPage() {
           const decodedToken = jwtDecode(token);
           console.log("decoded:",decodedToken); 
           setuserid(decodedToken.id); 
-          
+          // sessionStorage.setItem('userid', decodedToken.id);
+
           
           setIsLoggedIn(true);
 
@@ -61,7 +62,8 @@ function LoginPage() {
           
             
         <Input  labelText="Password"
-          placeholderText="*********"
+                 type="password"  // Specify the type as 'password' to hide the text input
+                 placeholderText="*********"               
           onChangeText={setpassword}/>   
           <Text style={{marginLeft:'7%',fontSize:12,fontWeight:'regular'}}> Forgot my password</Text>   
           </View>

@@ -28,6 +28,9 @@ const AppContext = createContext({
   setcategories : ()=>{},
   filreddata:[],
   setfilreddata:()=>{},
+  check : false,
+  setcheck:()=>{},
+
 });
 
 // Custom hook to use the AppContext
@@ -53,6 +56,8 @@ export const AppProvider = ({ children }) => {
   const [searcheddata,setsearcheddata]=useState([])
   const [categories,setcategories] = useState([])
   const [filreddata,setfilreddata] = useState([])
+  const [check,setcheck]= useState(false)
+
 
   return (
     <AppContext.Provider value={{
@@ -71,14 +76,17 @@ export const AppProvider = ({ children }) => {
       founddata,
       setfounddata,
       userid,
-      setuserid,alldata,
+      setuserid,
+      alldata,
       setalldata,
       searcheddata,
       setsearcheddata,
       categories,
       setcategories,
       filreddata,
-      setfilreddata
+      setfilreddata,
+      check,
+      setcheck
     }}>
       {children}
     </AppContext.Provider>
