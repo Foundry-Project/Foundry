@@ -1,16 +1,18 @@
 const Stripe = require('stripe');
-const stripe = Stripe('sk_test_51PmGTfGJLYc4RI3yLAfbrcUe6u0gIo2l4lEcA0NstyDHwyIHv3yW4xbOM0MvNmg5c7GfdtUJssgouHfoQx4BddtS00hEPmhSzZ');
+// Replace 'sk_test_...' with your actual test or live secret key
+const stripe = Stripe('sk_test_51PvfN9LVzyLGt1G2WlqLYpIYdSrXanhRlKaZnRfpMsWp9m5UxqG8CoiPdqtUNzJe5wACNPTNT9FwFeeYu2v2nHJO009rtjGYSp');
 
 const { StripePayment, Match } = require('../Database/index'); // Adjust the path based on your project structure
 
 const addPayment = async (req, res) => {
   try {
-    const { userId, amount } = req.body; // Removed cartIds since it's not needed
+    const { userId, amount } = req.body;
 
     // Step 1: Create a payment intent with Stripe
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount * 100, // Amount in cents
-      currency: 'tnd', // Updated to Tunisian Dinar (TND)
+      currency: 'usd', // Adjust the currency as needed
+      metadata: { userId: userId },
     });
 
     // Step 2: Create a payment record in your database

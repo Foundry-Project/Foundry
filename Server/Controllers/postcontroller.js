@@ -1,16 +1,99 @@
-const { Post} = require('../Database/index'); // Adjust the path based on your project structure
+
+
+
+const { Post, User, Notification } = require('../Database/index'); // Import models
+const { Op } = require('sequelize'); // Import Sequelize operators
+
+// Helper function to create a notification
+async function createNotification(userId, content) {
+  try {
+    console.log(`Creating notification for user ${userId} with content: ${content}`);
+    await Notification.create({
+      userId,
+      content,
+      date: new Date(),
+    });
+    console.log(`Notification created for user ${userId}: ${content}`);
+  } catch (error) {
+    console.error('Error creating notification:', error);
+  }
+}
+
+// Function to calculate similarity between two strings
+function getSimilarity(str1, str2) {
+  const words1 = str1.split(' ');
+  const words2 = str2.split(' ');
+  const commonWords = words1.filter(word => words2.includes(word));
+  return (commonWords.length / Math.max(words1.length, words2.length));
+}
+
+// Function to extract the first part of the address
+const extractPlace = (address) => {
+  return address.split(',')[0].trim();
+};
+
+// Function to check for matching lost items and send notifications
+// Function to check for matching lost items and send notifications
+async function checkForMatchingLostItemsAndNotify(newPost) {
+  try {
+    if (newPost.status === 'Found') {
+      console.log('Checking for matching lost items...');
+
+      // Extract the first part of the new post's address
+      const newPostPlace = extractPlace(newPost.typoaddress);
+      console.log(`New post place: ${newPostPlace}`);
+
+      const matchingLostPosts = await Post.findAll({
+        where: {
+          categoryId: newPost.categoryId,
+          status: 'lost',
+        },
+        include: [{ model: User, as: 'user' }],
+      });
+
+      console.log(`Found ${matchingLostPosts.length} matching lost posts.`);
+
+      for (const lostPost of matchingLostPosts) {
+        console.log(`Processing lost post ID: ${lostPost.dataValues.id}`);
+        
+        // Extract the first part of the lost post's address
+        const lostPostPlace = extractPlace(lostPost.dataValues.typoaddress);
+        console.log(`Lost post place: ${lostPostPlace}`);
+console.log(newPostPlace);
+
+        // Check if the places match
+        if (newPostPlace === lostPostPlace) {
+          const similarity = getSimilarity(newPostPlace, lostPostPlace);
+          console.log(`Checking similarity for post ${lostPost.dataValues.id}: ${similarity}`);
+
+          if (similarity > 0.5) {
+            const notificationContent = `A matching found item has been posted in the ${newPost.categoryId} category at a similar location. Check it out!`;
+            console.log(`Creating notification for user ${lostPost.dataValues.userId}: ${notificationContent}`);
+            await createNotification(lostPost.dataValues.userId, notificationContent);
+            console.log(`Notification sent to user ${lostPost.dataValues.userId}`);
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error checking for matching lost items and sending notifications:', error);
+  }
+}
+
 
 // Controller to add a new post
 const addPost = async (req, res) => {
   try {
-    const { images, description, date, address, status, userId, categoryId,typoaddress } = req.body;
+    const { images, description, date, address, status, userId, categoryId, typoaddress } = req.body;
 
     // Validate the request body
     if (!description || !date || !address || !status || !userId || !categoryId) {
+      console.log('Validation failed: Missing required fields');
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
     // Create a new post
+    console.log('Creating new post...');
     const newPost = await Post.create({
       images,
       description,
@@ -19,8 +102,16 @@ const addPost = async (req, res) => {
       status,
       userId,
       categoryId,
-      typoaddress
+      typoaddress,
     });
+
+    console.log(`New post created with ID ${newPost.id}`);
+
+    // If the post status is 'found', check for matching lost items and notify users
+    if (newPost.status === 'Found') {
+      console.log('Post status is found. Checking for matching lost items...');
+      await checkForMatchingLostItemsAndNotify(newPost);
+    }
 
     res.status(201).json(newPost);
   } catch (error) {
@@ -33,7 +124,6 @@ const addPost = async (req, res) => {
 const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.findAll();
-
     res.status(200).json(posts);
   } catch (error) {
     console.error('Error fetching posts:', error);
@@ -41,6 +131,7 @@ const getAllPosts = async (req, res) => {
   }
 };
 
+// Controller to delete a post
 const deleteOnePost = async (req, res) => {
   try {
     const { id } = req.params; // Get the ID from the request parameters

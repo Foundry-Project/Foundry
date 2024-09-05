@@ -21,7 +21,7 @@
     "@react-native-picker/picker": "^2.7.7",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",
-    "@stripe/stripe-react-native": "^0.38.4",
+    "@stripe/stripe-react-native": "^0.38.6",
     "axios": "^1.7.5",
     "date-fns": "^3.6.0",
     "expo": "~51.0.28",

@@ -17,7 +17,7 @@ import ItemDetail from './ItemDetail'
 import SearchedPage from './SearchedPage'
 import SearchedByfilter from './SearchedByfilter'
 import SettingsPage from './SettingsPage';
-
+import PaymentPage from './PaymentPage'
 
 
 
@@ -42,6 +42,7 @@ const AppNavigator = () => {
         <Stack.Screen   options={{ headerShown: true }}name="ItemDetail" component={ItemDetail} /> 
         <Stack.Screen   options={{ headerShown: false }}name="SearchedPage" component={SearchedPage} /> 
         <Stack.Screen   options={{ headerShown: false }}name="SearchedByfilter" component={SearchedByfilter} /> 
+        <Stack.Screen   options={{ headerShown: false }}name="PaymentPage" component={PaymentPage} /> 
       </Stack.Navigator>
     </NavigationContainer>
   );
