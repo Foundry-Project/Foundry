@@ -14,6 +14,6 @@ router.get('/status/:status', postcontrollers.getPostsByStatus)
 
 router.get('/category/:categoryId', postcontrollers.getPostsByCategoryId);
 
-
+router.get('/:id',postcontrollers.getPostById)
 
 module.exports = router;

@@ -240,9 +240,24 @@
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     },
+    postId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Post,
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    },
+
     content: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    seen:{
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false, // Default value set to false
     },
     date: {
       type: DataTypes.DATE,
@@ -267,7 +282,7 @@
   Post.hasMany(Match, { foreignKey: 'postId', as: 'matches' });
   Notification.belongsTo(User, { foreignKey: 'userId', as: 'user' });
   User.hasMany(Notification, { foreignKey: 'userId', as: 'notifications' });
-
+  Post.hasMany(Notification, { foreignKey: 'postId', as: 'notifications' });
   // Authenticate and synchronize the database
   sequelize.authenticate()
     .then(() => console.log('Database connection successful'))

@@ -32,53 +32,117 @@ const getNotificationById = async (req, res) => {
       console.error('Error fetching notification:', error);
       res.status(500).json({ error: 'An error occurred while fetching the notification.' });
     }
-  };
-
+  }
   const getNotificationsByUserId = async (req, res) => {
     try {
       // Extract the userId from the request parameters
       const userId = req.params.userId;
-      
-      // Fetch the notifications from the database by userId
+  
+      // Fetch the notifications from the database by userId and where seen is false
       const notifications = await Notification.findAll({
-        where: { userId: userId }
+        where: {
+          userId: userId,
+          seen: false, // Add condition to fetch only unseen notifications
+        },
       });
-      
-      // Check if any notifications exist for the given userId
-      if (notifications.length > 0) {
-        // Send the notifications as a JSON response
-        res.json(notifications);
-      } else {
-        // Send a 404 response if no notifications were found
-        res.status(404).json({ error: 'No notifications found for this user' });
-      }
+  
+      // Send the notifications or an empty array as a JSON response
+      res.status(200).json(notifications);
+  
     } catch (error) {
       console.error('Error fetching notifications:', error);
       res.status(500).json({ error: 'An error occurred while fetching notifications.' });
     }
   };
+  
+    
   const updateNotificationUserId = async (req, res) => {
-    const { id } = req.params;
-    const { userId } = req.body;
-  
-    try {
-      // Find the notification by ID
-      const notification = await Notification.findByPk(id);
-      
-      if (!notification) {
-        return res.status(404).json({ error: 'Notification not found.' });
-      }
-  
-      // Update the notification's userId
-      notification.userId = userId;
-      await notification.save();
-  
-      // Send the updated notification as a JSON response
-      res.json(notification);
-    } catch (error) {
-      console.error('Error updating notification userId:', error);
-      res.status(500).json({ error: 'An error occurred while updating the notification.' });
-    }
-  };
+    const { id } = req.params; // Extract the notification ID from the request parameters
+  const { userId, postId } = req.body; // Extract userId and postId from the request body
 
-module.exports = { getAllNotifications,getNotificationById,getNotificationsByUserId ,updateNotificationUserId};
+  try {
+    // Find the notification by ID
+    const notification = await Notification.findByPk(id);
+
+    if (!notification) {
+      return res.status(404).json({ error: 'Notification not found.' });
+    }
+
+    // Update the notification's userId if provided
+    if (userId !== undefined) {
+      notification.userId = userId;
+    }
+
+    // Update the notification's postId if provided
+    if (postId !== undefined) {
+      notification.postId = postId;
+    }
+
+    // Save the updated notification
+    await notification.save();
+
+    // Send the updated notification as a JSON response
+    res.json(notification);
+  } catch (error) {
+    console.error('Error updating notification:', error);
+    res.status(500).json({ error: 'An error occurred while updating the notification.' });
+  }
+}
+const deleteNotification = async (req, res) => {
+  const { id } = req.params; // Extract notification ID from request parameters
+
+  try {
+    // Find the notification by ID
+    const notification = await Notification.findByPk(id);
+
+    if (!notification) {
+      return res.status(404).json({ error: 'Notification not found.' });
+    }
+
+    // Delete the notification
+    await notification.destroy();
+    res.json({ message: 'Notification deleted successfully.' });
+  } catch (error) {
+    console.error('Error deleting notification:', error);
+    res.status(500).json({ error: 'An error occurred while deleting the notification.' });
+  }
+};
+
+// Function to update a notification
+const updateNotification = async (req, res) => {
+  const { id } = req.params; // Extract the notification ID from the request parameters
+  const { content, seen,userId } = req.body; // Extract the fields to update from the request body
+
+  try {
+    // Find the notification by ID
+    const notification = await Notification.findByPk(id);
+
+    if (!notification) {
+      return res.status(404).json({ error: 'Notification not found.' });
+    }
+
+    // Update the notification's fields if provided
+    if (content !== undefined) {
+      notification.content = content;
+    }
+    if (seen !== undefined) {
+      notification.seen = seen;
+    }
+    if (userId !== undefined) {
+      notification.userId = userId;
+    }
+    // Save the updated notification
+    await notification.save();
+
+    // Send the updated notification as a JSON response
+    res.json(notification);
+  } catch (error) {
+    console.error('Error updating notification:', error);
+    res.status(500).json({ error: 'An error occurred while updating the notification.' });
+  }
+};
+
+
+
+
+module.exports = { getAllNotifications,getNotificationById,getNotificationsByUserId ,updateNotificationUserId,deleteNotification,updateNotification};

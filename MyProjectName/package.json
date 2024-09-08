@@ -25,6 +25,8 @@
     "axios": "^1.7.5",
     "date-fns": "^3.6.0",
     "expo": "~51.0.28",
+    "expo-av": "~13.0.0",
+    "expo-firebase-messaging": "^2.0.0",
     "expo-image-picker": "^15.0.7",
     "expo-location": "^17.0.1",
     "expo-status-bar": "~1.12.1",

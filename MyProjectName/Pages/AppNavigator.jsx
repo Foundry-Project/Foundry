@@ -18,6 +18,7 @@ import SearchedPage from './SearchedPage'
 import SearchedByfilter from './SearchedByfilter'
 import SettingsPage from './SettingsPage';
 import PaymentPage from './PaymentPage'
+import Matchechnotif from '../components/Matchednotif'
 
 
 
@@ -43,6 +44,7 @@ const AppNavigator = () => {
         <Stack.Screen   options={{ headerShown: false }}name="SearchedPage" component={SearchedPage} /> 
         <Stack.Screen   options={{ headerShown: false }}name="SearchedByfilter" component={SearchedByfilter} /> 
         <Stack.Screen   options={{ headerShown: false }}name="PaymentPage" component={PaymentPage} /> 
+        <Stack.Screen   options={{ headerShown: false }}name="Matchechnotif" component={Matchechnotif} /> 
       </Stack.Navigator>
     </NavigationContainer>
   );

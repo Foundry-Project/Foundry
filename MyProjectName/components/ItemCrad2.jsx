@@ -4,11 +4,24 @@ import React from 'react';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import AddIcon from 'react-native-vector-icons/MaterialIcons';
 import Checked from 'react-native-vector-icons/AntDesign';
+import MsgBar from '../components/MsgBar'
+import SearchBar from '../components/SearchBar'
+import NavBar from '../components/NavBar'
+import CategoriesList from '../components/CategoriesList'
+
+
 // import { useAppContext } from '../context'; // Import context hook
 
-const ItemCard = ({ image, date, place, colorr, status, onPress, onPress2, isChecked }) => {
+const ItemCard2 = ({ image, date, place, colorr, status, onPress, onPress2, isChecked,navigation }) => {
   return (
-    <Pressable onPress={onPress} style={{
+    <View  >
+      <MsgBar navigation={navigation} />
+      <SearchBar />
+     <View style={{marginBottom:'-8%'}}>
+      
+     <CategoriesList />
+      </View> 
+      <Pressable onPress={onPress} style={{
       width: 164,
       height: 210,
       marginTop: '8%',
@@ -71,8 +84,11 @@ const ItemCard = ({ image, date, place, colorr, status, onPress, onPress2, isChe
           {place}
         </Text>
       </View>
-    </Pressable>
+    </Pressable> 
+         {/* <NavBar navigation={navigation}/> */}
+    </View>
+   
   );
 }
 
-export default ItemCard;
+export default ItemCard2;

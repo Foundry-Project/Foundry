@@ -5,13 +5,15 @@ const { Post, User, Notification } = require('../Database/index'); // Import mod
 const { Op } = require('sequelize'); // Import Sequelize operators
 
 // Helper function to create a notification
-async function createNotification(userId, content) {
+async function createNotification(userId,postId, content,) {
   try {
     console.log(`Creating notification for user ${userId} with content: ${content}`);
     await Notification.create({
       userId,
+      postId,
       content,
       date: new Date(),
+      seen:false
     });
     console.log(`Notification created for user ${userId}: ${content}`);
   } catch (error) {
@@ -60,6 +62,7 @@ async function checkForMatchingLostItemsAndNotify(newPost) {
         const lostPostPlace = extractPlace(lostPost.dataValues.typoaddress);
         console.log(`Lost post place: ${lostPostPlace}`);
 console.log(newPostPlace);
+console.log(lostPostPlace);
 
         // Check if the places match
         if (newPostPlace === lostPostPlace) {
@@ -69,7 +72,7 @@ console.log(newPostPlace);
           if (similarity > 0.5) {
             const notificationContent = `A matching found item has been posted in the ${newPost.categoryId} category at a similar location. Check it out!`;
             console.log(`Creating notification for user ${lostPost.dataValues.userId}: ${notificationContent}`);
-            await createNotification(lostPost.dataValues.userId, notificationContent);
+            await createNotification(lostPost.dataValues.userId, newPost.id, notificationContent);
             console.log(`Notification sent to user ${lostPost.dataValues.userId}`);
           }
         }
@@ -212,11 +215,41 @@ const getPostsByCategoryId = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+// Controller to get a post by ID
+const getPostById = async (req, res) => {
+  try {
+    const { id } = req.params; // Get the ID from the request parameters
+
+    // Validate the ID
+    if (!id) {
+      return res.status(400).json({ message: 'Post ID is required' });
+    }
+
+    // Find the post by ID
+    const post = await Post.findByPk(id, {
+      include: [
+        { model: User, as: 'user' }, // Include related user data if needed
+      ],
+    });
+
+    // Check if the post exists
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    res.status(200).json(post);
+  } catch (error) {
+    console.error('Error fetching post by ID:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 
 module.exports = {
   addPost,
   getAllPosts,
   deleteOnePost,
   getPostsByStatus,
-  getPostsByCategoryId
+  getPostsByCategoryId,
+  getPostById
 };
