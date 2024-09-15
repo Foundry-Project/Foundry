@@ -9,16 +9,16 @@
 
 // const Chat = () => {
 //   const { userId } = useParams();
+//   const numericUserId = Number(userId); // Convert userId to a number
 //   const [chatId, setChatId] = useState(null);
 //   const [messageInput, setMessageInput] = useState('');
 //   const [loading, setLoading] = useState(false);
 //   const [error, setError] = useState(null);
 //   const messagesEndRef = useRef(null);
 //   const { adminId } = useGlobalContext(); // Get context functions
-// console.log(adminId);
-// console.log("no",typeof(userId));
 
-
+//   console.log("adminId:", adminId);
+//   console.log("userId:", numericUserId); // Log to verify userId is a number
 
 //   // Fetch or create chat ID when component mounts or userId changes
 //   useEffect(() => {
@@ -26,9 +26,11 @@
 //       setLoading(true);
 //       setError(null);
 //       try {
-//         if (userId) {
-//           const id = await getOrCreateChatId(8);
+//         if (!isNaN(numericUserId)) { // Ensure userId is a valid number
+//           const id = await getOrCreateChatId(numericUserId, adminId);
 //           setChatId(id);
+//         } else {
+//           setError('Invalid user ID.'); // Handle invalid userId case
 //         }
 //       } catch (error) {
 //         console.error('Error fetching or creating chat ID:', error);
@@ -39,7 +41,7 @@
 //     };
 
 //     fetchChatId();
-//   }, [userId, adminId]);
+//   }, [numericUserId, adminId]);
 
 //   // Fetch messages using custom hook
 //   const messages = useChatMessages(chatId);
@@ -71,7 +73,7 @@
 
 //   return (
 //     <div style={{ padding: '20px', backgroundColor: '#f1f1f1', height: '100vh', display: 'flex', flexDirection: 'column' }}>
-//       <h1 style={{ marginBottom: '20px' }}>Chat with User {userId}</h1>
+//       <h1 style={{ marginBottom: '20px' }}>Chat with User {numericUserId}</h1>
 //       <div style={{ flex: 1, overflowY: 'auto', backgroundColor: '#fff', borderRadius: '8px', padding: '10px', boxShadow: '0 0 5px rgba(0,0,0,0.1)' }}>
 //         {messages.length > 0 ? (
 //           messages.map((message) => (
@@ -131,9 +133,6 @@ const Chat = () => {
   const [error, setError] = useState(null);
   const messagesEndRef = useRef(null);
   const { adminId } = useGlobalContext(); // Get context functions
-
-  console.log("adminId:", adminId);
-  console.log("userId:", numericUserId); // Log to verify userId is a number
 
   // Fetch or create chat ID when component mounts or userId changes
   useEffect(() => {
@@ -201,9 +200,24 @@ const Chat = () => {
                 backgroundColor: message.senderId === adminId ? '#e0e0e0' : '#d1ffd1',
               }}
             >
-              <p style={{ margin: '0' }}>
-                <strong>{message.senderId === adminId ? 'Admin' : 'User'}:</strong> {message.text}
-              </p>
+              {/* Display text message if available */}
+              {message.text && (
+                <p style={{ margin: '0' }}>
+                  <strong>{message.senderId === adminId ? 'Admin' : 'User'}:</strong> {message.text}
+                </p>
+              )}
+
+              {/* Display image message if available */}
+              {message.imageUrl && (
+                <div style={{ marginTop: '10px' }}>
+                  <strong>{message.senderId === adminId ? 'Admin' : 'User'}:</strong>
+                  <img
+                    src={message.imageUrl}
+                    alt="Sent image"
+                    style={{ maxWidth: '20%', borderRadius: '8px', marginTop: '5px' }}
+                  />
+                </div>
+              )}
             </div>
           ))
         ) : (

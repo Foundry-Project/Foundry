@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect ,useState} from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import ItemCard from './ItemCard'; // Adjust the path as necessary
 import { useAppContext } from '../context'; // Import context hook
@@ -11,9 +11,41 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const ItemListSearched = () => {
-  const { searcheddata } = useAppContext();
+  const { searcheddata ,userid} = useAppContext();
+  const [checkedItems, setCheckedItems] = useState({});
+  const navigation = useNavigation(); // Initialize the navigation
 
+  useEffect(() => {
+    const matchedItems = searcheddata.reduce((acc, match) => {
+      acc[match.postId] = true;
+      return acc;
+    }, {});
+    setCheckedItems(matchedItems);
+  }, [searcheddata]);
 
+  const toggleCheck = async (index, postId) => {
+    const isChecked = !!checkedItems[postId];
+    setCheckedItems((prev) => ({ ...prev, [postId]: !isChecked }));
+
+    try {
+      if (!isChecked) {
+        // Add match
+        await axios.post(`${BASE_URL}/match/matches`, {
+          userId: userid,
+          postId: postId,
+        });
+        console.log('Match added successfully');
+      } else {
+        // Remove match
+        await axios.delete(`${BASE_URL}/match/matches/${postId}`, {
+          data: { userId: userid },
+        });
+        console.log('Match removed successfully');
+      }
+    } catch (error) {
+      console.error('Error toggling match:', error);
+    }
+  };
 
 
 const formatDate = (isoDate) => {
@@ -36,7 +68,7 @@ const getColorByStatus = (status) => {
   return (
     <FlatList
       data={searcheddata}
-      renderItem={({ item }) => {
+      renderItem={({ item ,index}) => {
         console.log(item.images) 
 
         return (
@@ -44,8 +76,20 @@ const getColorByStatus = (status) => {
           image={item.images[0]}
           date={formatDate(item.date)}  // Format the date before passing it to the ItemCard component
           place={place(item.typoaddress)}
-          color={getColorByStatus(item.status)} // Pass color based on status
+          colorr={getColorByStatus(item.status)} // Pass color based on status
           status={item.status}   
+          onPress={() =>
+            navigation.navigate('ItemDetail', {
+              image: item.images[0],
+              description: item.description,
+              lat: item.address.lat,
+              lng: item.address.lng,
+              place: item.typoaddress,
+              date: formatDate(item.date),
+            })
+          }
+          onPress2={() => toggleCheck(index, item.id)} // Use index correctly here
+          isChecked={!!checkedItems[item.id]}
           />
 
           
@@ -66,3 +110,4 @@ const styles = StyleSheet.create({
 });
 
 export default ItemListSearched;
+
